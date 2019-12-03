@@ -1,0 +1,12 @@
+# Optional name
+name: Morning visit, group 1
+mothers:
+  # The file name without suffix.
+  - lucy-lu-12345
+  - ann-foo-789456
+
+# Children are auto-calculated from the caregivers and mothers.
+children:
+  - dan-foo-12345
+  - roni-bar-9999
+  - sam-lu-91754

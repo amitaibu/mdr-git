@@ -1,0 +1,4 @@
+name: Muhundo
+# Type can be: health_center, region.
+type: health_center
+country: RWA
