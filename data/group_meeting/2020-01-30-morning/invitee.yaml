@@ -5,8 +5,12 @@ mothers:
   - lucy-lu-12345
   - ann-foo-789456
 
-# Children are auto-calculated from the caregivers and mothers.
-children:
+# Add children that where brought without their mother or caregiver. This is rare.
+# children:
+
+
+# Below are children auto-calculated from the caregivers and mothers.
+children_from_mothers_and_caregivers:
   - dan-foo-12345
   - roni-bar-9999
   - sam-lu-91754
