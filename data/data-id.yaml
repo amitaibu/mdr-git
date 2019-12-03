@@ -1,3 +1,4 @@
+version: 1
 name: Muhundo
 # Type can be: health_center, region.
 type: health_center

@@ -1,3 +1,4 @@
+version: 1
 # Under what group meeting was this taken.
 group_meeting: 2020-01-30-morning
 weight: 8
