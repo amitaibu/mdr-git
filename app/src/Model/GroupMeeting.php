@@ -4,13 +4,19 @@
 namespace App\Model;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class GroupMeeting
 {
 
+
     private $name;
     private $date;
+
+    /**
+     * @var \App\Model\MotherPartial[] | ArrayCollection
+     */
     private $mothers;
-    private $children;
 
     /**
      * @return mixed
@@ -58,22 +64,6 @@ class GroupMeeting
     public function setMothers($mothers): void
     {
         $this->mothers = $mothers;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * @param mixed $children
-     */
-    public function setChildren($children): void
-    {
-        $this->children = $children;
     }
 
 

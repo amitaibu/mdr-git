@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Model\GroupMeeting;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,29 +30,14 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
           ->in($this->kernel->getProjectDir() . '/../data/group-meetings/')
           ->name('invitee.yaml');
 
-
+        $groupMeetings = [];
 
         foreach ($finder as $file) {
-            $absoluteFilePath = $file->getRealPath();
-            $fileNameWithExtension = $file->getRelativePathname();
-
-            // ...
-            dump($absoluteFilePath);
+            $groupMeetings[] = $this->serializer->deserialize($file->getContents(), GroupMeeting::class, 'yaml');
         }
 
 
-
-
-        return [
-          '2020-01-30-morning' => [
-            'name' => 'foo',
-            'mothers' => [
-                'ann-foo-789456' => ['first_name' => 'Ann', 'last_name' => 'Foo'],
-            ],
-            'children' => [],
-          ],
-        ];
-
+        return $groupMeetings;
     }
 
 }
