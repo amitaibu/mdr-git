@@ -24,7 +24,10 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
     {
 
         $finder = new Finder();
-        $finder->files()->in($this->kernel->getProjectDir() . '/../data/group-meetings');
+        $finder
+          ->files()
+          ->in($this->kernel->getProjectDir() . '/../data/group-meetings/')
+          ->name('invitee.yaml');
 
 
 
@@ -33,6 +36,7 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
             $fileNameWithExtension = $file->getRelativePathname();
 
             // ...
+            dump($absoluteFilePath);
         }
 
 
