@@ -28,7 +28,7 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
         $finder
           ->files()
           ->in($this->kernel->getProjectDir() . '/../data/group-meetings/')
-          ->name('invitee.yaml');
+          ->name('*.yaml');
 
         $groupMeetings = [];
 
