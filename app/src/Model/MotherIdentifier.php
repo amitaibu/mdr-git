@@ -16,6 +16,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class MotherIdentifier
 {
 
+    private $fileId;
+
     /**
      * @var string
      */
@@ -105,8 +107,21 @@ class MotherIdentifier
         $this->children = $children;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
 
-
+    /**
+     * @param mixed $fileId
+     */
+    public function setFileId($fileId): void
+    {
+        $this->fileId = $fileId;
+    }
 
 
 }

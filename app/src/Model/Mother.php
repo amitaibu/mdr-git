@@ -15,6 +15,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Mother
 {
 
+    private $fileId;
+
     /**
      * @var \App\Model\MotherIdentifier
      */
@@ -57,6 +59,22 @@ class Mother
     public function setBirthdayEstimated(bool $birthdayEstimated): void
     {
         $this->birthdayEstimated = $birthdayEstimated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
+
+    /**
+     * @param mixed $fileId
+     */
+    public function setFileId($fileId): void
+    {
+        $this->fileId = $fileId;
     }
 
 }

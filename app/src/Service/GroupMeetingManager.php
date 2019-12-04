@@ -24,20 +24,35 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
     public function index()
     {
 
+        return $this->getByName();
+    }
+
+    public function get($fileName): ?GroupMeeting
+    {
+        $groupMeetings = $this->getByName($fileName);
+        return $groupMeetings ? reset($groupMeetings) : null;
+    }
+
+    protected function getByName(string $name = '*')
+    {
         $finder = new Finder();
         $finder
           ->files()
           ->in($this->kernel->getProjectDir() . '/../data/group-meetings/')
-          ->name('*.yaml');
+          ->name($name . '.yaml');
 
         $groupMeetings = [];
 
         foreach ($finder as $file) {
-            $groupMeetings[] = $this->serializer->deserialize($file->getContents(), GroupMeeting::class, 'yaml');
+            /** @var GroupMeeting $groupMeeting */
+            $groupMeeting = $this->serializer->deserialize($file->getContents(), GroupMeeting::class, 'yaml');
+
+            // Add the file name.
+            $groupMeeting->setFileId($file->getFilenameWithoutExtension());
+            $groupMeetings[] = $groupMeeting;
         }
 
 
         return $groupMeetings;
     }
-
 }

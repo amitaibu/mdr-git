@@ -11,6 +11,7 @@ class GroupMeeting
 {
 
 
+    private $fileId;
     private $name;
     private $date;
 
@@ -67,6 +68,22 @@ class GroupMeeting
     public function setMotherIdentifiers($motherIdentifiers): void
     {
         $this->motherIdentifiers = $motherIdentifiers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
+
+    /**
+     * @param mixed $fileId
+     */
+    public function setFileId($fileId): void
+    {
+        $this->fileId = $fileId;
     }
 
 

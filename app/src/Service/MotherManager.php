@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Model\GroupMeeting;
 use App\Model\Mother;
 use App\Model\MotherIdentifier;
 use Symfony\Component\Finder\Finder;
@@ -18,19 +19,32 @@ class MotherManager implements MotherManagerInterface
 
     private $kernel;
 
-    public function __construct(ObjectNormalizer $normalizer, KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
     }
 
 
-    public function getIdentifier(string $id): ?MotherIdentifier
+    public function getIdentifier(string $fileName): ?MotherIdentifier
     {
 
+        return $this->getMotherByClass($fileName, MotherIdentifier::class);
+    }
+
+
+    public function getFull(string $fileName): ?Mother
+
+    {
+
+        return $this->getMotherByClass($fileName, Mother::class);
+
+    }
+
+    private function getMotherByClass(string $fileId, $className) {
         $finder = new Finder();
         $finder
           ->files()
-          ->in($this->kernel->getProjectDir() . '/../data/mothers/' . $id)
+          ->in($this->kernel->getProjectDir() . '/../data/mothers/' . $fileId)
           ->name('id.yaml');
 
         if (!$finder->hasResults()) {
@@ -44,19 +58,21 @@ class MotherManager implements MotherManagerInterface
 
         $serializer = new Serializer($normalizers, $encoders);
 
-        $iterator = $finder->getIterator();
-        $iterator->rewind();
-        $data = $iterator->current()->getContents();
-
         foreach ($finder as $file) {
             // Return on the first file.
-            return $serializer->deserialize($data, MotherIdentifier::class, 'yaml');
+            $mother = $serializer->deserialize($file->getContents(), $className, 'yaml');
+            $path = explode('/', $file->getFileInfo()->getPath());
+            $fileId = end($path);
+
+            $mother->setFileId($fileId);
+
+            // @todo: How to get Symfony to do this for us?
+            if (Mother::class === $className) {
+                $motherIdentifier = $serializer->deserialize($file->getContents(), MotherIdentifier::class, 'yaml');
+                $mother->setIdentifier($motherIdentifier);
+            }
+
+            return $mother;
         }
-    }
-
-
-    public function getFull(string $id): ?Mother
-    {
-        // TODO: Implement getFull() method.
     }
 }

@@ -10,8 +10,8 @@ use App\Model\MotherIdentifier;
 interface MotherManagerInterface
 {
 
-    public function getIdentifier(string $id) : ?MotherIdentifier;
+    public function getIdentifier(string $fileName) : ?MotherIdentifier;
 
-    public function getFull(string $id) : ?Mother;
+    public function getFull(string $fileName) : ?Mother;
 
 }
