@@ -2,7 +2,6 @@ version: 1
 # Optional name
 name: Evening visit, group 3
 mothers:
-  # The file name without suffix.
   - lucy-lu-12345
 
 # Add children that where brought without their mother or caregiver. This is rare.

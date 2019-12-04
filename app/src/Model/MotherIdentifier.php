@@ -4,6 +4,7 @@
 namespace App\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * Class MotherIdentifier
@@ -22,6 +23,8 @@ class MotherIdentifier
 
     /**
      * @var string
+     *
+     * @SerializedName("first_name")
      */
     private $firstName;
 

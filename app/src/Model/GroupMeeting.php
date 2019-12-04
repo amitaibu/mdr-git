@@ -10,7 +10,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class GroupMeeting
 {
 
-
     private $name;
     private $date;
 
