@@ -30,6 +30,8 @@ class MotherIdentifier
 
     /**
      * @var string
+     *
+     * @SerializedName("last_name")
      */
     private $lastName;
 
@@ -37,6 +39,7 @@ class MotherIdentifier
      * @var \App\Model\ChildIdentifier[] | ArrayCollection
      */
     private $children;
+
 
     /**
      * @return string
