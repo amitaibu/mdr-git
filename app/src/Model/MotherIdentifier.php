@@ -19,7 +19,7 @@ class MotherIdentifier
     /**
      * @var string
      */
-    private $identifier;
+    private $id;
 
     /**
      * @var string
@@ -44,17 +44,17 @@ class MotherIdentifier
     /**
      * @return string
      */
-    public function getIdentifier(): string
+    public function getId(): string
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     /**
-     * @param string $identifier
+     * @param string $id
      */
-    public function setIdentifier(string $identifier): void
+    public function setId(string $id): void
     {
-        $this->identifier = $identifier;
+        $this->id = $id;
     }
 
     /**

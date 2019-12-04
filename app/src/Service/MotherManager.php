@@ -8,19 +8,19 @@ use App\Model\Mother;
 use App\Model\MotherIdentifier;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class MotherManager implements MotherManagerInterface
 {
 
     private $kernel;
-    private $normalizer;
 
     public function __construct(ObjectNormalizer $normalizer, KernelInterface $kernel)
     {
         $this->kernel = $kernel;
-        $this->normalizer = $normalizer;
     }
 
 
@@ -37,8 +37,20 @@ class MotherManager implements MotherManagerInterface
             return null;
         }
 
+        // We can't use an injected Serializer service, as it will cause
+        // a recursive reference from \App\Serializer\Normalizer\MotherIdentifierDenormalizer
+        $encoders = [new YamlEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $iterator = $finder->getIterator();
+        $iterator->rewind();
+        $data = $iterator->current()->getContents();
+
         foreach ($finder as $file) {
-            return $this->normalizer->denormalize($file->getContents(), MotherIdentifier::class, 'yaml');
+            // Return on the first file.
+            return $serializer->deserialize($data, MotherIdentifier::class, 'yaml');
         }
     }
 
