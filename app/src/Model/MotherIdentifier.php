@@ -4,6 +4,7 @@
 namespace App\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * Class MotherIdentifier
@@ -18,15 +19,19 @@ class MotherIdentifier
     /**
      * @var string
      */
-    private $identifier;
+    private $id;
 
     /**
      * @var string
+     *
+     * @SerializedName("first_name")
      */
     private $firstName;
 
     /**
      * @var string
+     *
+     * @SerializedName("last_name")
      */
     private $lastName;
 
@@ -35,20 +40,21 @@ class MotherIdentifier
      */
     private $children;
 
+
     /**
      * @return string
      */
-    public function getIdentifier(): string
+    public function getId(): string
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     /**
-     * @param string $identifier
+     * @param string $id
      */
-    public function setIdentifier(string $identifier): void
+    public function setId(string $id): void
     {
-        $this->identifier = $identifier;
+        $this->id = $id;
     }
 
     /**
