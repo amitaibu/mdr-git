@@ -5,6 +5,7 @@ namespace App\Model;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 class GroupMeeting
 {
@@ -14,9 +15,11 @@ class GroupMeeting
     private $date;
 
     /**
-     * @var \App\Model\MotherPartial[] | ArrayCollection
+     * @var \App\Model\MotherIdentifier[] | ArrayCollection
+     *
+     * @SerializedName("mothers")
      */
-    private $mothers;
+    private $motherIdentifiers;
 
     /**
      * @return mixed
@@ -53,17 +56,17 @@ class GroupMeeting
     /**
      * @return mixed
      */
-    public function getMothers()
+    public function getMotherIdentifiers()
     {
-        return $this->mothers;
+        return $this->motherIdentifiers;
     }
 
     /**
-     * @param mixed $mothers
+     * @param mixed $motherIdentifiers
      */
-    public function setMothers($mothers): void
+    public function setMotherIdentifiers($motherIdentifiers): void
     {
-        $this->mothers = $mothers;
+        $this->motherIdentifiers = $motherIdentifiers;
     }
 
 
