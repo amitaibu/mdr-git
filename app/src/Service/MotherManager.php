@@ -8,20 +8,23 @@ use App\Model\Mother;
 use App\Model\MotherIdentifier;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class MotherManager implements MotherManagerInterface
 {
 
     private $kernel;
+    private $normalizer;
 
-    public function __construct(KernelInterface $kernel)
+    public function __construct(ObjectNormalizer $normalizer, KernelInterface $kernel)
     {
         $this->kernel = $kernel;
+        $this->normalizer = $normalizer;
     }
 
 
-    public function getIdentifier(string $id): ?string
+    public function getIdentifier(string $id): ?MotherIdentifier
     {
 
         $finder = new Finder();
@@ -35,12 +38,12 @@ class MotherManager implements MotherManagerInterface
         }
 
         foreach ($finder as $file) {
-            return $file->getContents();
+            return $this->normalizer->denormalize($file->getContents(), MotherIdentifier::class, 'yaml');
         }
     }
 
 
-    public function getFull(string $id): ?string
+    public function getFull(string $id): ?Mother
     {
         // TODO: Implement getFull() method.
     }

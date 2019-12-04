@@ -27,10 +27,7 @@ class MotherIdentifierDenormalizer extends ObjectNormalizer
     public function denormalize($data, string $type, string $format = null, array $context = [])
     {
 
-        dump($type);
-        $dataFromFile =  $this->motherManager->getIdentifier($data);
-        dump($dataFromFile);
-        return $this->normalizer->denormalize($dataFromFile, $type, $format, $context);
+        return $this->motherManager->getIdentifier($data);
     }
 
 

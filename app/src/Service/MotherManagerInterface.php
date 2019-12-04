@@ -10,8 +10,8 @@ use App\Model\MotherIdentifier;
 interface MotherManagerInterface
 {
 
-    public function getIdentifier(string $id) : ?string;
+    public function getIdentifier(string $id) : ?MotherIdentifier;
 
-    public function getFull(string $id) : ?string;
+    public function getFull(string $id) : ?Mother;
 
 }
