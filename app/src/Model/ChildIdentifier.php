@@ -32,6 +32,8 @@ class ChildIdentifier
 
     /**
      * @var string
+     *
+     * @SerializedName("mother")
      */
     private $motherIdentifier;
 

@@ -58,17 +58,16 @@ class ChildManager implements ChildManagerInterface
 
         foreach ($finder as $file) {
             // Return on the first file.
-            $child = $serializer->deserialize($file->getContents(), $className, 'yaml');
+
+            $fileContents = $file->getContents();
+
+            $child = $serializer->deserialize($fileContents, $className, 'yaml');
             $path = explode('/', $file->getFileInfo()->getPath());
             $fileId = end($path);
 
             $child->setFileId($fileId);
 
-            // @todo: How to get Symfony to do this for us?
-            if (Child::class === $className) {
-                $motherIdentifier = $serializer->deserialize($file->getContents(), ChildIdentifier::class, 'yaml');
-                $child->setIdentifier($motherIdentifier);
-            }
+
 
             return $child;
         }
