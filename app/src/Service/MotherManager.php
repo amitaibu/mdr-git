@@ -6,6 +6,7 @@ namespace App\Service;
 use App\Model\ChildIdentifier;
 use App\Model\Mother;
 use App\Model\MotherIdentifier;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
@@ -39,10 +40,18 @@ class MotherManager implements MotherManagerInterface
     }
 
     private function getByClass(string $fileId, $className) {
+        $filesystem = new Filesystem();
+
+        $path = $this->kernel->getProjectDir() . '/../data/mothers/' . $fileId;
+
+        if (!$filesystem->exists($path)) {
+            return null;
+        }
+
         $finder = new Finder();
         $finder
           ->files()
-          ->in($this->kernel->getProjectDir() . '/../data/mothers/' . $fileId)
+          ->in($path)
           ->name('id.yaml');
 
         if (!$finder->hasResults()) {

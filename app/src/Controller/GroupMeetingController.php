@@ -29,6 +29,10 @@ class GroupMeetingController extends AbstractController
     {
         $groupMeeting = $groupMeetingManager->get($fileId);
 
+        if (!$groupMeeting) {
+            throw $this->createNotFoundException('Group meeting not found.');
+        }
+
         return $this->render('group_meeting/show.html.twig', [
           'group_meeting' => $groupMeeting,
         ]);

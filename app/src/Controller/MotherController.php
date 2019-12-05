@@ -16,7 +16,14 @@ class MotherController extends AbstractController
     {
 
         $groupMeeting = $groupMeetingManager->get($groupMeetingFileId);
+        if (!$groupMeeting) {
+            throw $this->createNotFoundException('Group meeting not found.');
+        }
+
         $mother = $motherManager->get($fileId);
+        if (!$mother) {
+            throw $this->createNotFoundException('Mother not found.');
+        }
 
         return $this->render('mother/show.html.twig', [
             'mother' => $mother,
