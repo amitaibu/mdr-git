@@ -3,34 +3,26 @@
 
 namespace App\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
- * Class Mother
+ * Class Child
  *
- * Hold the full Mother data.
+ * Hold the full Child data.
  *
  * @package App\Model
  */
-class Mother
+class Child
 {
 
     private $fileId;
 
     /**
-     * @var \App\Model\MotherIdentifier
+     * @var \App\Model\ChildIdentifier
      */
     private $identifier;
 
-    /**
-     * @var bool
-     *
-     * @SerializedName("birthday_estiamted")
-     */
-    private $birthdayEstimated;
-
-    /**
+       /**
      * @return \App\Model\MotherIdentifier
      */
     public function getIdentifier(): \App\Model\MotherIdentifier
@@ -44,22 +36,6 @@ class Mother
     public function setIdentifier(\App\Model\MotherIdentifier $identifier): void
     {
         $this->identifier = $identifier;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isBirthdayEstimated(): bool
-    {
-        return $this->birthdayEstimated;
-    }
-
-    /**
-     * @param bool $birthdayEstimated
-     */
-    public function setBirthdayEstimated(bool $birthdayEstimated): void
-    {
-        $this->birthdayEstimated = $birthdayEstimated;
     }
 
     /**

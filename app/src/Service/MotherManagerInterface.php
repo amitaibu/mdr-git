@@ -12,6 +12,6 @@ interface MotherManagerInterface
 
     public function getIdentifier(string $fileName) : ?MotherIdentifier;
 
-    public function getFull(string $fileName) : ?Mother;
+    public function get(string $fileName) : ?Mother;
 
 }

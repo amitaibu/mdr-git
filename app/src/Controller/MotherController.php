@@ -16,10 +16,10 @@ class MotherController extends AbstractController
     {
 
         $groupMeeting = $groupMeetingManager->get($groupMeetingFileId);
-        $motherFull = $motherManager->getFull($fileId);
+        $mother = $motherManager->get($fileId);
 
         return $this->render('mother/show.html.twig', [
-            'mother' => $motherFull,
+            'mother' => $mother,
             'group_meeting' => $groupMeeting,
         ]);
     }

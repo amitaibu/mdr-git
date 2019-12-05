@@ -3,8 +3,7 @@
 
 namespace App\Service;
 
-
-use App\Model\GroupMeeting;
+use App\Model\ChildIdentifier;
 use App\Model\Mother;
 use App\Model\MotherIdentifier;
 use Symfony\Component\Finder\Finder;
@@ -12,7 +11,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class MotherManager implements MotherManagerInterface
 {
@@ -28,19 +26,19 @@ class MotherManager implements MotherManagerInterface
     public function getIdentifier(string $fileName): ?MotherIdentifier
     {
 
-        return $this->getMotherByClass($fileName, MotherIdentifier::class);
+        return $this->getByClass($fileName, MotherIdentifier::class);
     }
 
 
-    public function getFull(string $fileName): ?Mother
+    public function get(string $fileName): ?Mother
 
     {
 
-        return $this->getMotherByClass($fileName, Mother::class);
+        return $this->getByClass($fileName, Mother::class);
 
     }
 
-    private function getMotherByClass(string $fileId, $className) {
+    private function getByClass(string $fileId, $className) {
         $finder = new Finder();
         $finder
           ->files()
@@ -58,17 +56,26 @@ class MotherManager implements MotherManagerInterface
 
         $serializer = new Serializer($normalizers, $encoders);
 
+        // Return on the first file.
         foreach ($finder as $file) {
-            // Return on the first file.
-            $mother = $serializer->deserialize($file->getContents(), $className, 'yaml');
+
+            $motherFileContent = $file->getContents();
+
+            // @todo: Why doesn't normalize children?
+            $mother = $serializer->deserialize($motherFileContent, $className, 'yaml');
+
             $path = explode('/', $file->getFileInfo()->getPath());
             $fileId = end($path);
-
             $mother->setFileId($fileId);
+
+//            $childrenIdentifiers = $serializer->deserialize($motherFileContent, ChildIdentifier::class, 'yaml');
+//            // @todo: Set file ID on childrenIdentifiers.
+//            $mother->setChildrenIdentifiers($childrenIdentifiers);
 
             // @todo: How to get Symfony to do this for us?
             if (Mother::class === $className) {
-                $motherIdentifier = $serializer->deserialize($file->getContents(), MotherIdentifier::class, 'yaml');
+                $motherIdentifier = $serializer->deserialize($motherFileContent, MotherIdentifier::class, 'yaml');
+                $motherIdentifier->setFileId($fileId);
                 $mother->setIdentifier($motherIdentifier);
             }
 

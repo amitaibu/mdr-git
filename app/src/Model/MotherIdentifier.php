@@ -39,8 +39,10 @@ class MotherIdentifier
 
     /**
      * @var \App\Model\ChildIdentifier[] | ArrayCollection
+     *
+     * @SerializedName("children")
      */
-    private $children;
+    private $childrenIdentifiers;
 
 
     /**
@@ -94,17 +96,17 @@ class MotherIdentifier
     /**
      * @return \App\Model\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection
      */
-    public function getChildren()
+    public function getChildrenIdentifiers()
     {
-        return $this->children;
+        return $this->childrenIdentifiers;
     }
 
     /**
-     * @param \App\Model\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection $children
+     * @param \App\Model\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection $childrenIdentifiers
      */
-    public function setChildren($children): void
+    public function setChildrenIdentifiers($childrenIdentifiers): void
     {
-        $this->children = $children;
+        $this->childrenIdentifiers = $childrenIdentifiers;
     }
 
     /**
