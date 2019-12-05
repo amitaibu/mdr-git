@@ -7,18 +7,22 @@ namespace App\Service;
 use App\Model\GroupMeeting;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class GroupMeetingManager implements GroupMeetingManagerInterface
 {
 
-    private $serializer;
+    private $denormalizer;
     private $kernel;
+    private $motherManager;
 
-    public function __construct(SerializerInterface $serializer, KernelInterface $kernel)
+    public function __construct(DenormalizerInterface $denormalizer, KernelInterface $kernel, MotherManagerInterface $motherManager)
     {
-        $this->serializer = $serializer;
+        $this->denormalizer = $denormalizer;
         $this->kernel = $kernel;
+        $this->motherManager = $motherManager;
     }
 
     public function index()
@@ -44,15 +48,30 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
         $groupMeetings = [];
 
         foreach ($finder as $file) {
+            $data = Yaml::parse($file->getContents());
+
             /** @var GroupMeeting $groupMeeting */
-            $groupMeeting = $this->serializer->deserialize($file->getContents(), GroupMeeting::class, 'yaml');
+            $groupMeeting = $this->denormalizer->denormalize($data, GroupMeeting::class);
 
             // Add the file name.
             $groupMeeting->setFileId($file->getFilenameWithoutExtension());
+
+            // Add Mother identifiers.
+            $this->addMotherIdentifiers($groupMeeting, $data);
+
             $groupMeetings[] = $groupMeeting;
         }
 
 
         return $groupMeetings;
+    }
+
+    private function addMotherIdentifiers(GroupMeeting $groupMeeting, array $data) {
+        $motherIdentifiers = [];
+        foreach ($data['mothers'] as $fileId) {
+            $motherIdentifiers[] = $this->motherManager->getIdentifier($fileId);
+        }
+
+        $groupMeeting->setMotherIdentifiers($motherIdentifiers);
     }
 }

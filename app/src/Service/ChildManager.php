@@ -78,9 +78,9 @@ class ChildManager implements ChildManagerInterface
 
                 $child->setIdentifier($childIdentifier);
 
-                // Add measurements
-                $measurements = $this->childMeasurementsManager->get($fileId);
-                $child->setMeasurements($measurements);
+//                // Add measurements
+//                $measurements = $this->childMeasurementsManager->get($fileId);
+//                $child->setMeasurements($measurements);
             }
 
             return $child;
