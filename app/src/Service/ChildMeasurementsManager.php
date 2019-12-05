@@ -5,6 +5,8 @@ namespace App\Service;
 
 
 use App\Model\ChildMeasurements;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -56,6 +58,19 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 
             // Check if a photo exists, and if so, mark as true.
             $photo = $filesystem->exists($path . '/photo.png') ? $path . '/photo.png' : null;
+
+            $photo = null;
+            if ($filesystem->exists($path . '/photo.png')) {
+                // To serve this image we need to temporarily copy it
+                // to be under `public`.
+                $target = 'child/photos/' . $fileId . '.png';
+                $filesystem->copy($path . '/photo.png', $target, true);
+                $package = new Package(new EmptyVersionStrategy());
+
+                // Absolute path
+                $photo = $package->getUrl('/' . $target);
+            }
+
             $childMeasurements->setPhoto($photo);
 
             $childrenMeasurements[] = $childMeasurements;
