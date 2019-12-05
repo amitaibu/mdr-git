@@ -3,6 +3,7 @@
 
 namespace App\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
@@ -32,7 +33,7 @@ class Mother
     /**
      * @return \App\Model\MotherIdentifier
      */
-    public function getIdentifier(): \App\Model\MotherIdentifier
+    public function getIdentifier(): ?\App\Model\MotherIdentifier
     {
         return $this->identifier;
     }
@@ -48,7 +49,7 @@ class Mother
     /**
      * @return bool
      */
-    public function isBirthdayEstimated(): bool
+    public function isBirthdayEstimated()
     {
         return $this->birthdayEstimated;
     }

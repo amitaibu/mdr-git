@@ -27,9 +27,9 @@ class GroupMeetingManager implements GroupMeetingManagerInterface
         return $this->getByName();
     }
 
-    public function get($fileName): ?GroupMeeting
+    public function get($fileId): ?GroupMeeting
     {
-        $groupMeetings = $this->getByName($fileName);
+        $groupMeetings = $this->getByName($fileId);
         return $groupMeetings ? reset($groupMeetings) : null;
     }
 

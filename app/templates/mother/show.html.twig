@@ -10,11 +10,27 @@
 
 <div class="example-wrapper">
 
-    {{ dump(mother) }}
+    <div>
+        <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
+            Back to group meeting {{  group_meeting.name }}
+        </a>
+    </div>
 
     <h1>
         {{ mother.identifier.firstName }} {{ mother.identifier.lastName }}
     </h1>
+
+    {{ dump(mother) }}
+
+    <ul>
+        {% for childIdentifier in mother.identifier.childrenIdentifiers %}
+            <li>
+                <a href="{{ path('child', {groupMeetingFileId: group_meeting.fileId, fileId: childIdentifier.fileId}) }}">
+                    {{ childIdentifier.firstName }} {{ childIdentifier.lastName }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 
 
 </div>

@@ -3,48 +3,58 @@
 
 namespace App\Service;
 
-
-use App\Model\GroupMeeting;
+use App\Model\ChildIdentifier;
 use App\Model\Mother;
 use App\Model\MotherIdentifier;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class MotherManager implements MotherManagerInterface
 {
 
     private $kernel;
+    private $childManager;
 
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel, ChildManagerInterface $childManager)
     {
         $this->kernel = $kernel;
+        $this->childManager = $childManager;
     }
 
 
     public function getIdentifier(string $fileName): ?MotherIdentifier
     {
 
-        return $this->getMotherByClass($fileName, MotherIdentifier::class);
+        return $this->getByClass($fileName, MotherIdentifier::class);
     }
 
 
-    public function getFull(string $fileName): ?Mother
+    public function get(string $fileName): ?Mother
 
     {
 
-        return $this->getMotherByClass($fileName, Mother::class);
+        return $this->getByClass($fileName, Mother::class);
 
     }
 
-    private function getMotherByClass(string $fileId, $className) {
+    private function getByClass(string $fileId, $className) {
+        $filesystem = new Filesystem();
+
+        $path = $this->kernel->getProjectDir() . '/../data/mothers/' . $fileId;
+
+        if (!$filesystem->exists($path)) {
+            return null;
+        }
+
         $finder = new Finder();
         $finder
           ->files()
-          ->in($this->kernel->getProjectDir() . '/../data/mothers/' . $fileId)
+          ->in($path)
           ->name('id.yaml');
 
         if (!$finder->hasResults()) {
@@ -58,21 +68,42 @@ class MotherManager implements MotherManagerInterface
 
         $serializer = new Serializer($normalizers, $encoders);
 
+
+        // Return on the first file.
         foreach ($finder as $file) {
-            // Return on the first file.
-            $mother = $serializer->deserialize($file->getContents(), $className, 'yaml');
+
+            $motherFileContent = $file->getContents();
+            $motherData = Yaml::parse($motherFileContent);
+
+            $mother = $serializer->denormalize($motherData, $className);
+
             $path = explode('/', $file->getFileInfo()->getPath());
             $fileId = end($path);
-
             $mother->setFileId($fileId);
 
+            if (MotherIdentifier::class === $className) {
+                $this->addChildrenIdentifiers($mother, $motherData);
+            }
             // @todo: How to get Symfony to do this for us?
-            if (Mother::class === $className) {
-                $motherIdentifier = $serializer->deserialize($file->getContents(), MotherIdentifier::class, 'yaml');
+            elseif (Mother::class === $className) {
+                $motherIdentifier = $serializer->denormalize($motherData, MotherIdentifier::class);
+                $motherIdentifier->setFileId($fileId);
+                $this->addChildrenIdentifiers($motherIdentifier, $motherData);
+
                 $mother->setIdentifier($motherIdentifier);
             }
 
             return $mother;
         }
     }
+
+    private function addChildrenIdentifiers(MotherIdentifier $motherIdentifier, array $motherData) {
+        $childrenIdentifiers = [];
+        foreach ($motherData['children'] as $childFileId) {
+            $childrenIdentifiers[] = $this->childManager->getIdentifier($childFileId);
+        }
+
+        $motherIdentifier->setChildrenIdentifiers($childrenIdentifiers);
+    }
+
 }

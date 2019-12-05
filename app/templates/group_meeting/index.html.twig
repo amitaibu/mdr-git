@@ -16,7 +16,7 @@
     <ul>
         {% for group_meeting in group_meetings %}
             <li>
-                <a href="{{ path('group_meeting', {fileName: group_meeting.fileId}) }}">
+                <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
                     {{ group_meeting.name }}
                 </a>
             </li>

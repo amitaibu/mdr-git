@@ -4,18 +4,15 @@ namespace App\Serializer\Normalizer;
 
 
 use App\Service\MotherManagerInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class MotherIdentifierDenormalizer extends ObjectNormalizer
 {
-    private $normalizer;
     private $motherManager;
 
-    public function __construct(ObjectNormalizer $normalizer, MotherManagerInterface $motherManager)
+    public function __construct(MotherManagerInterface $childManager)
     {
-        $this->normalizer = $normalizer;
-        $this->motherManager = $motherManager;
+        $this->motherManager = $childManager;
     }
 
     public function supportsDenormalization($data, string $type, string $format = null)
