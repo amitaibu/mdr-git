@@ -17,7 +17,7 @@ class GroupMeetingController extends AbstractController
     {
         $groupMeetings = $groupMeetingManager->index();
 
-        return $this->render('group_meeting/index.html.twig', [
+        return $this->render('group_meeting/show.html.twig', [
             'group_meetings' => $groupMeetings,
         ]);
     }

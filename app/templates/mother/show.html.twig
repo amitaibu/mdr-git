@@ -22,6 +22,16 @@
         {{ mother.identifier.firstName }} {{ mother.identifier.lastName }}
     </h1>
 
+    <ul>
+        {% for childIdentifier in mother.identifier.childrenIdentifiers %}
+            <li>
+                <a href="{{ path('child', {groupMeetingFileId: group_meeting.fileId, fileId: childIdentifier.fileId}) }}">
+                    {{ childIdentifier.firstName }} {{ childIdentifier.lastName }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
 
 </div>
 {% endblock %}
