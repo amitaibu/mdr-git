@@ -4,6 +4,8 @@
 namespace App\Model;
 
 
+use Symfony\Component\Serializer\Annotation\SerializedName;
+
 class ChildMeasurements
 {
 
@@ -11,6 +13,13 @@ class ChildMeasurements
     private $weight;
     private $height;
     private $photo;
+
+    /**
+     * @var string
+     *
+     * @SerializedName("group_meeting")
+     */
+    private $groupMeeting;
 
     /**
      * @return mixed
@@ -74,6 +83,22 @@ class ChildMeasurements
     public function setPhoto($photo): void
     {
         $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroupMeeting()
+    {
+        return $this->groupMeeting;
+    }
+
+    /**
+     * @param mixed $groupMeeting
+     */
+    public function setGroupMeeting($groupMeeting): void
+    {
+        $this->groupMeeting = $groupMeeting;
     }
 
 
