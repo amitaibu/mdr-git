@@ -49,9 +49,14 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
             $childMeasurements = $this->serializer->deserialize($file->getContents(), ChildMeasurements::class, 'yaml');
 
             // Add the File ID.
-            $path = explode('/', $file->getFileInfo()->getPath());
-            $fileId = end($path);
+            $path = $file->getFileInfo()->getPath();
+            $pathExploded = explode('/', $file->getFileInfo()->getPath());
+            $fileId = end($pathExploded);
             $childMeasurements->setFileId($fileId);
+
+            // Check if a photo exists, and if so, mark as true.
+            $photo = $filesystem->exists($path . '/photo.png') ? $path . '/photo.png' : null;
+            $childMeasurements->setPhoto($photo);
 
             $childrenMeasurements[] = $childMeasurements;
         }

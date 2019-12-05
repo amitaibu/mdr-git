@@ -40,6 +40,13 @@
                             <div>Group meeting: {{ measurements.groupMeeting }}</div>
                             <div>Height: {{ measurements.height }} cm</div>
                             <div>Weight: {{ measurements.weight }} kg</div>
+                            {% if measurements.photo is not null %}
+                            <div>
+                                <img src="{{ measurements.photo }}" alt="Child image" />
+                            </div>
+                            {% endif %}
+
+
                         </li>
                     {% endfor %}
                 </ul>
