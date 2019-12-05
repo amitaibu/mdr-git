@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Entity;
 
 
 use Symfony\Component\Serializer\Annotation\SerializedName;

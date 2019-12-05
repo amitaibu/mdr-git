@@ -4,7 +4,7 @@
 namespace App\Service;
 
 
-use App\Model\ChildMeasurements;
+use App\Entity\ChildMeasurements;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Filesystem\Filesystem;

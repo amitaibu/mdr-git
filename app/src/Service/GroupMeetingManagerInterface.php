@@ -3,7 +3,7 @@
 namespace App\Service;
 
 
-use App\Model\GroupMeeting;
+use App\Entity\GroupMeeting;
 
 interface GroupMeetingManagerInterface
 {

@@ -4,8 +4,8 @@
 namespace App\Service;
 
 
-use App\Model\Child;
-use App\Model\ChildIdentifier;
+use App\Entity\Child;
+use App\Entity\ChildIdentifier;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;

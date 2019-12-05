@@ -4,8 +4,8 @@
 namespace App\Service;
 
 
-use App\Model\Child;
-use App\Model\ChildIdentifier;
+use App\Entity\Child;
+use App\Entity\ChildIdentifier;
 
 interface ChildManagerInterface
 {

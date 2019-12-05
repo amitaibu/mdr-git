@@ -4,7 +4,7 @@
 namespace App\Service;
 
 
-use App\Model\GroupMeeting;
+use App\Entity\GroupMeeting;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

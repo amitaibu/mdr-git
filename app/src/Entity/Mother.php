@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *
  * Hold the full Mother data.
  *
- * @package App\Model
+ * @package App\Entity
  */
 class Mother
 {
@@ -19,7 +19,7 @@ class Mother
     private $fileId;
 
     /**
-     * @var \App\Model\MotherIdentifier
+     * @var \App\Entity\MotherIdentifier
      */
     private $identifier;
 
@@ -31,17 +31,17 @@ class Mother
     private $birthdayEstimated;
 
     /**
-     * @return \App\Model\MotherIdentifier
+     * @return \App\Entity\MotherIdentifier
      */
-    public function getIdentifier(): ?\App\Model\MotherIdentifier
+    public function getIdentifier(): ?\App\Entity\MotherIdentifier
     {
         return $this->identifier;
     }
 
     /**
-     * @param \App\Model\MotherIdentifier $identifier
+     * @param \App\Entity\MotherIdentifier $identifier
      */
-    public function setIdentifier(\App\Model\MotherIdentifier $identifier): void
+    public function setIdentifier(\App\Entity\MotherIdentifier $identifier): void
     {
         $this->identifier = $identifier;
     }
