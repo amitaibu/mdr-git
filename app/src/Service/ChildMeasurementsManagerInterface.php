@@ -4,10 +4,6 @@
 namespace App\Service;
 
 
-use App\Model\Child;
-use App\Model\ChildIdentifier;
-use App\Model\ChildMeasurements;
-
 interface ChildMeasurementsManagerInterface
 {
 
