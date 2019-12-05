@@ -16,11 +16,11 @@
         </a>
     </div>
 
-    {{ dump(mother) }}
-
     <h1>
         {{ mother.identifier.firstName }} {{ mother.identifier.lastName }}
     </h1>
+
+    {{ dump(mother) }}
 
     <ul>
         {% for childIdentifier in mother.identifier.childrenIdentifiers %}

@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Model\Child;
 use App\Model\ChildIdentifier;
+use App\Model\MotherIdentifier;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
@@ -60,6 +61,7 @@ class ChildManager implements ChildManagerInterface
             // Return on the first file.
 
             $fileContents = $file->getContents();
+            dump($fileContents);
 
             $child = $serializer->deserialize($fileContents, $className, 'yaml');
             $path = explode('/', $file->getFileInfo()->getPath());
@@ -79,4 +81,5 @@ class ChildManager implements ChildManagerInterface
             return $child;
         }
     }
+
 }

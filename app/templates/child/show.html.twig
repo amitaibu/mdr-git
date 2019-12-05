@@ -9,6 +9,16 @@
 </style>
 
 <div class="example-wrapper">
+    <div>
+        <a href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: child.identifier.mother}) }}">
+            Back to mother
+        </a>
+    </div>
+
+    <h1>
+        {{ child.identifier.firstName }} {{ child.identifier.lastName }}
+    </h1>
+
     {{ dump(child) }}
 
 

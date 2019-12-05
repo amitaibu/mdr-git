@@ -33,9 +33,13 @@ class ChildIdentifier
     /**
      * @var string
      *
-     * @SerializedName("mother")
+     * Prevent circular dependency, so we just capture the file ID of the
+     * mother.
+     *
+     * @todo: When trying to "@SerializedName("mother")" and have the name be
+     * `$motherFileId` it didn't map.
      */
-    private $motherIdentifier;
+    private $mother;
 
     /**
      * @return string
@@ -86,22 +90,6 @@ class ChildIdentifier
     }
 
     /**
-     * @return string
-     */
-    public function getMotherIdentifier(): string
-    {
-        return $this->motherIdentifier;
-    }
-
-    /**
-     * @param string $motherIdentifier
-     */
-    public function setMotherIdentifier(string $motherIdentifier): void
-    {
-        $this->motherIdentifier = $motherIdentifier;
-    }
-
-    /**
      * @return mixed
      */
     public function getFileId()
@@ -115,6 +103,22 @@ class ChildIdentifier
     public function setFileId($fileId): void
     {
         $this->fileId = $fileId;
+    }
+
+    /**
+     * @return \App\Model\MotherIdentifier[]|\Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getMother()
+    {
+        return $this->mother;
+    }
+
+    /**
+     * @param \App\Model\MotherIdentifier[]|\Doctrine\Common\Collections\ArrayCollection $mother
+     */
+    public function setMother($mother): void
+    {
+        $this->mother = $mother;
     }
 
 
