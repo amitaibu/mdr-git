@@ -22,7 +22,13 @@
     </h1>
 
     {% if measurements_from_group_meeting_index is null %}
-        No measurements taken yet for this group meeting.
+        <div>
+            No measurements taken yet for this group meeting.
+        </div>
+        <div>
+            {{ form(form) }}
+        </div>
+
     {% else %}
         <div>
             Measurements from this group session:

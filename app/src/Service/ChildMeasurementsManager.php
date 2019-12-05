@@ -56,8 +56,6 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
             $fileId = end($pathExploded);
             $childMeasurements->setFileId($fileId);
 
-            // Check if a photo exists, and if so, mark as true.
-            $photo = $filesystem->exists($path . '/photo.png') ? $path . '/photo.png' : null;
 
             $photo = null;
             if ($filesystem->exists($path . '/photo.png')) {

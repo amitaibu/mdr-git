@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\ChildMeasurements;
+use App\Form\Type\ChildMeasurementsType;
 use App\Service\ChildManagerInterface;
 use App\Service\GroupMeetingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,11 +38,24 @@ class ChildController extends AbstractController
             }
         }
 
+        $form = null;
+        if (!$measurementsFromGroupMeetingIndex) {
+            // Add form to create new measurements.
+            $childMeasurements = new ChildMeasurements();
+
+            $now = new \DateTime();
+            $fileId = $now->format('Y-m-d-H:i');
+
+            $childMeasurements->setFileId($fileId);
+            $form = $this->createForm(ChildMeasurementsType::class, $childMeasurements);
+        }
+
 
         return $this->render('child/show.html.twig', [
           'child' => $child,
           'group_meeting' => $groupMeeting,
           'measurements_from_group_meeting_index' => $measurementsFromGroupMeetingIndex,
+          'form' => $form,
         ]);
     }
 }
