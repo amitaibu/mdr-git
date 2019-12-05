@@ -1,45 +1,36 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
- * Class ChildIdentifier
+ * Class MotherIdentifier
  *
- * Hold only the basic info of a child, without loading entire data.
+ * Hold only the basic info of a mother, without loading entire data.
  *
- * @package App\Model
+ * @package App\Entity
  */
-class ChildIdentifier
+class MotherIdentifier
 {
 
     private $fileId;
 
-    /**
-     * @var string
-     */
     private $id;
 
-    /**
-     * @var string
-     */
     private $firstName;
 
-    /**
-     * @var string
-     */
     private $lastName;
 
     /**
-     * @var string
+     * @var \App\Entity\ChildIdentifier[] | \Doctrine\Common\Collections\ArrayCollection
      *
-     * Prevent circular dependency, so we just capture the file ID of the
-     * mother.
-     *
-     * @todo: When trying to "@SerializedName("mother")" and have the name be
-     * `$motherFileId` it didn't map.
+     * @SerializedName("children")
      */
-    private $mother;
+    private $childrenIdentifiers;
+
 
     /**
      * @return string
@@ -90,6 +81,22 @@ class ChildIdentifier
     }
 
     /**
+     * @return \App\Entity\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getChildrenIdentifiers()
+    {
+        return $this->childrenIdentifiers;
+    }
+
+    /**
+     * @param \App\Entity\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection $childrenIdentifiers
+     */
+    public function setChildrenIdentifiers($childrenIdentifiers): void
+    {
+        $this->childrenIdentifiers = $childrenIdentifiers;
+    }
+
+    /**
      * @return mixed
      */
     public function getFileId()
@@ -103,22 +110,6 @@ class ChildIdentifier
     public function setFileId($fileId): void
     {
         $this->fileId = $fileId;
-    }
-
-    /**
-     * @return \App\Model\MotherIdentifier[]|\Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getMother()
-    {
-        return $this->mother;
-    }
-
-    /**
-     * @param \App\Model\MotherIdentifier[]|\Doctrine\Common\Collections\ArrayCollection $mother
-     */
-    public function setMother($mother): void
-    {
-        $this->mother = $mother;
     }
 
 

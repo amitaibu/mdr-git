@@ -4,8 +4,8 @@
 namespace App\Service;
 
 
-use App\Model\Mother;
-use App\Model\MotherIdentifier;
+use App\Entity\Mother;
+use App\Entity\MotherIdentifier;
 
 interface MotherManagerInterface
 {

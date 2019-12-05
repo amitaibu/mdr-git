@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +16,7 @@ class GroupMeeting
     private $date;
 
     /**
-     * @var \App\Model\MotherIdentifier[] | ArrayCollection
+     * @var \App\Entity\MotherIdentifier[] | ArrayCollection
      *
      * @SerializedName("mothers")
      */

@@ -15,11 +15,59 @@
         </a>
     </div>
 
+    {{ dump(child) }}
+
     <h1>
         {{ child.identifier.firstName }} {{ child.identifier.lastName }}
     </h1>
 
-    {{ dump(child) }}
+    {% if has_existing_measurements %}
+        <div>
+            Edit existing measurements
+        </div>
+    {% else %}
+        <div>
+            No measurements taken yet for this group meeting.
+        </div>
+    {% endif %}
+
+    <div>
+        {{ form(form) }}
+    </div>
+
+
+    {% if child.measurements is not null %}
+        <div>
+            <h3>All measurements</h3>
+            <details>
+                <ul>
+                    {% for measurements in child.measurements %}
+                        <li>
+                            <div>Group meeting: {{ measurements.groupMeeting }}</div>
+                            <div>Height: {{ measurements.height }} cm</div>
+                            <div>Weight: {{ measurements.weight }} kg</div>
+                            {% if measurements.photo is not null %}
+                            <div>
+                                <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>
+                            </div>
+                            {% endif %}
+
+
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </details>
+        </div>
+    {% else %}
+        <div>
+            Child has no measurements ever taken.
+        </div>
+    {% endif %}
+
+
+
+
 
 
 </div>

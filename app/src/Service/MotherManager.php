@@ -3,9 +3,8 @@
 
 namespace App\Service;
 
-use App\Model\ChildIdentifier;
-use App\Model\Mother;
-use App\Model\MotherIdentifier;
+use App\Entity\Mother;
+use App\Entity\MotherIdentifier;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
