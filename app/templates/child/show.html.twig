@@ -30,6 +30,29 @@
         {{ dump(child.measurements[measurements_from_group_meeting_index]) }}
     {% endif %}
 
+    {% if child.measurements is not null %}
+        <div>
+            <h3>All measurements</h3>
+            <details>
+                <ul>
+                    {% for measurements in child.measurements %}
+                        <li>
+                            <div>Group meeting: {{ measurements.groupMeeting }}</div>
+                            <div>Height: {{ measurements.height }} cm</div>
+                            <div>Weight: {{ measurements.weight }} kg</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </details>
+        </div>
+    {% else %}
+        <div>
+            Child has no measurements ever taken.
+        </div>
+    {% endif %}
+
+
 
 
 

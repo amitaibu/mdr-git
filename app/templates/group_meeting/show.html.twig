@@ -10,12 +10,14 @@
 
 <div class="example-wrapper">
     <div>
-        <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
-            {{ group_meeting.name }}
+        <a href="{{ path('group_meetings') }}">
+            Back to group meetings
         </a>
     </div>
 
     {{ dump(group_meeting) }}
+
+    <h1>{{ group_meeting.name }}</h1>
 
     <ul>
         {% for motherIdentifier in group_meeting.motherIdentifiers %}
