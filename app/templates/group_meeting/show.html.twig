@@ -15,8 +15,6 @@
         </a>
     </div>
 
-    {{ dump(group_meeting) }}
-
     <h1>{{ group_meeting.name }}</h1>
 
     <ul>
@@ -28,6 +26,10 @@
             </li>
         {% endfor %}
     </ul>
+
+    <details>
+        {{ dump(group_meeting) }}
+    </details>
 
 </div>
 {% endblock %}

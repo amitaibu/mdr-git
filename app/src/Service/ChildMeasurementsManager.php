@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\ChildMeasurements;
+use Cz\Git\GitRepository;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Filesystem\Filesystem;
@@ -95,5 +96,9 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 
         $filesystem->dumpFile($path, Yaml::dump($encoded));
 
+//        Commit files!
+//        $repo = new GitRepository('.');
+//        $repo->addFile($path);
+//        $repo->commit('Create or update measurements for ' . $childFileId);
     }
 }

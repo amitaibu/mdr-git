@@ -9,9 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello!</h1>
-
-    {{ dump(group_meetings[0]) }}
+    <h1>Group Meetings</h1>
 
     <ul>
         {% for group_meeting in group_meetings %}
@@ -22,6 +20,10 @@
             </li>
         {% endfor %}
     </ul>
+
+    <details>
+        {{ dump(group_meetings[0]) }}
+    </details>
 
 
 </div>

@@ -20,8 +20,6 @@
         {{ mother.identifier.firstName }} {{ mother.identifier.lastName }}
     </h1>
 
-    {{ dump(mother) }}
-
     <ul>
         {% for childIdentifier in mother.identifier.childrenIdentifiers %}
             <li>
@@ -31,6 +29,10 @@
             </li>
         {% endfor %}
     </ul>
+
+    <details>
+        {{ dump(mother) }}
+    </details>
 
 
 </div>

@@ -1,4 +1,7 @@
 {
+    "czproject/git-php": {
+        "version": "v3.17.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

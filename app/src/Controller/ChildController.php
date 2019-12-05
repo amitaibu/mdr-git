@@ -82,9 +82,6 @@ class ChildController extends AbstractController
             return $this->redirect($request->getUri());
         }
 
-
-
-
         return $this->render('child/show.html.twig', [
           'child' => $child,
           'group_meeting' => $groupMeeting,
