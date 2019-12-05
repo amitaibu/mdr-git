@@ -6,7 +6,6 @@ namespace App\Service;
 
 use App\Model\Child;
 use App\Model\ChildIdentifier;
-use App\Model\MotherIdentifier;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
@@ -17,10 +16,12 @@ class ChildManager implements ChildManagerInterface
 {
 
     private $kernel;
+    private $childMeasurementsManager;
 
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel, ChildMeasurementsManagerInterface $childMeasurementsManager)
     {
         $this->kernel = $kernel;
+        $this->childMeasurementsManager = $childMeasurementsManager;
     }
 
 
@@ -76,6 +77,10 @@ class ChildManager implements ChildManagerInterface
                 $childIdentifier->setFileId($fileId);
 
                 $child->setIdentifier($childIdentifier);
+
+                // Add measurements
+                $measurements = $this->childMeasurementsManager->get($fileId);
+                $child->setMeasurements($measurements);
             }
 
             return $child;

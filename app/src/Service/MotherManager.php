@@ -3,7 +3,6 @@
 
 namespace App\Service;
 
-use App\Model\ChildIdentifier;
 use App\Model\Mother;
 use App\Model\MotherIdentifier;
 use Symfony\Component\Filesystem\Filesystem;

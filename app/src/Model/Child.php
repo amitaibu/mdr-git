@@ -3,6 +3,7 @@
 
 namespace App\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
@@ -21,6 +22,11 @@ class Child
      * @var \App\Model\ChildIdentifier
      */
     private $identifier;
+
+    /**
+     * @var \App\Model\ChildMeasurements[] | ArrayCollection
+     */
+    private $measurements;
 
     /**
      * @return mixed
@@ -52,6 +58,22 @@ class Child
     public function setIdentifier(\App\Model\ChildIdentifier $identifier): void
     {
         $this->identifier = $identifier;
+    }
+
+    /**
+     * @return \App\Model\ChildMeasurements[]|\Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getMeasurements()
+    {
+        return $this->measurements;
+    }
+
+    /**
+     * @param \App\Model\ChildMeasurements[]|\Doctrine\Common\Collections\ArrayCollection $measurements
+     */
+    public function setMeasurements($measurements): void
+    {
+        $this->measurements = $measurements;
     }
 
 }
