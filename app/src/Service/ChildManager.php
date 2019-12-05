@@ -6,7 +6,11 @@ namespace App\Service;
 
 use App\Model\Child;
 use App\Model\ChildIdentifier;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class ChildManager implements ChildManagerInterface
 {
@@ -54,19 +58,19 @@ class ChildManager implements ChildManagerInterface
 
         foreach ($finder as $file) {
             // Return on the first file.
-            $mother = $serializer->deserialize($file->getContents(), $className, 'yaml');
+            $child = $serializer->deserialize($file->getContents(), $className, 'yaml');
             $path = explode('/', $file->getFileInfo()->getPath());
             $fileId = end($path);
 
-            $mother->setFileId($fileId);
+            $child->setFileId($fileId);
 
             // @todo: How to get Symfony to do this for us?
             if (Child::class === $className) {
                 $motherIdentifier = $serializer->deserialize($file->getContents(), ChildIdentifier::class, 'yaml');
-                $mother->setIdentifier($motherIdentifier);
+                $child->setIdentifier($motherIdentifier);
             }
 
-            return $mother;
+            return $child;
         }
     }
 }

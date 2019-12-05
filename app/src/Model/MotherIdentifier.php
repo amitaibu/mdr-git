@@ -26,6 +26,8 @@ class MotherIdentifier
 
     /**
      * @var \App\Model\ChildIdentifier[] | \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @SerializedName("children")
      */
     private $childrenIdentifiers;
 

@@ -13,10 +13,12 @@ namespace App\Model;
 class ChildIdentifier
 {
 
+    private $fileId;
+
     /**
      * @var string
      */
-    private $identifier;
+    private $id;
 
     /**
      * @var string
@@ -36,17 +38,17 @@ class ChildIdentifier
     /**
      * @return string
      */
-    public function getIdentifier(): string
+    public function getId(): string
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     /**
-     * @param string $identifier
+     * @param string $id
      */
-    public function setIdentifier(string $identifier): void
+    public function setId(string $id): void
     {
-        $this->identifier = $identifier;
+        $this->id = $id;
     }
 
     /**
@@ -95,6 +97,22 @@ class ChildIdentifier
     public function setMotherIdentifier(string $motherIdentifier): void
     {
         $this->motherIdentifier = $motherIdentifier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
+
+    /**
+     * @param mixed $fileId
+     */
+    public function setFileId($fileId): void
+    {
+        $this->fileId = $fileId;
     }
 
 

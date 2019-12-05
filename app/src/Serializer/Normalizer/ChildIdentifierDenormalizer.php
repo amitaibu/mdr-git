@@ -26,6 +26,7 @@ class ChildIdentifierDenormalizer extends ObjectNormalizer
     public function denormalize($data, string $type, string $format = null, array $context = [])
     {
 
+        dump('ok');
         return $this->childManager->getIdentifier($data);
     }
 

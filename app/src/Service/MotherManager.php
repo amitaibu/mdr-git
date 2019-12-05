@@ -12,15 +12,18 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Yaml\Yaml;
 
 class MotherManager implements MotherManagerInterface
 {
 
     private $kernel;
+    private $childManager;
 
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel, ChildManagerInterface $childManager)
     {
         $this->kernel = $kernel;
+        $this->childManager = $childManager;
     }
 
 
@@ -63,28 +66,44 @@ class MotherManager implements MotherManagerInterface
         $encoders = [new YamlEncoder()];
         $normalizers = [new ObjectNormalizer()];
 
-         $serializer = new Serializer($normalizers, $encoders);
+        $serializer = new Serializer($normalizers, $encoders);
 
 
         // Return on the first file.
         foreach ($finder as $file) {
 
             $motherFileContent = $file->getContents();
+            $motherData = Yaml::parse($motherFileContent);
 
-            $mother = $serializer->deserialize($motherFileContent, $className, 'yaml');
+            $mother = $serializer->denormalize($motherData, $className);
 
             $path = explode('/', $file->getFileInfo()->getPath());
             $fileId = end($path);
             $mother->setFileId($fileId);
 
+            if (MotherIdentifier::class === $className) {
+                $this->addChildrenIdentifiers($mother, $motherData);
+            }
             // @todo: How to get Symfony to do this for us?
-            if (Mother::class === $className) {
-                $motherIdentifier = $serializer->deserialize($motherFileContent, MotherIdentifier::class, 'yaml');
+            elseif (Mother::class === $className) {
+                $motherIdentifier = $serializer->denormalize($motherData, MotherIdentifier::class);
                 $motherIdentifier->setFileId($fileId);
+                $this->addChildrenIdentifiers($motherIdentifier, $motherData);
+
                 $mother->setIdentifier($motherIdentifier);
             }
 
             return $mother;
         }
     }
+
+    private function addChildrenIdentifiers(MotherIdentifier $motherIdentifier, array $motherData) {
+        $childrenIdentifiers = [];
+        foreach ($motherData['children'] as $childFileId) {
+            $childrenIdentifiers[] = $this->childManager->getIdentifier($childFileId);
+        }
+
+        $motherIdentifier->setChildrenIdentifiers($childrenIdentifiers);
+    }
+
 }
