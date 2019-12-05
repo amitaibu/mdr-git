@@ -11,6 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 {
@@ -75,6 +76,24 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
         }
 
         return $childrenMeasurements;
+
+    }
+
+    public function create(string $childFileId, string $fileId, ChildMeasurements $childMeasurements)
+    {
+        $filesystem = new Filesystem();
+        $path = $this->kernel->getProjectDir() . '/../data/children/' . $childFileId . '/measurements/' . $fileId . '/data.yaml';
+
+        // @todo: Use encoder.
+        $encoded = [
+            'version' => 1,
+            'group_meeting' => $childMeasurements->getGroupMeeting(),
+            'height' => $childMeasurements->getHeight(),
+            'weight' => $childMeasurements->getWeight(),
+        ];
+
+
+        $filesystem->dumpFile($path, Yaml::dump($encoded));
 
     }
 }

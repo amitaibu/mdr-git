@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\ChildMeasurements;
 use App\Form\Type\ChildMeasurementsType;
 use App\Service\ChildManagerInterface;
+use App\Service\ChildMeasurementsManagerInterface;
 use App\Service\GroupMeetingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ChildController extends AbstractController
@@ -14,7 +16,14 @@ class ChildController extends AbstractController
     /**
      * @Route("/group-meetings/{groupMeetingFileId}/child/{fileId}", name="child")
      */
-    public function showChildInGroupMeetingContext(string $groupMeetingFileId, string $fileId, ChildManagerInterface $childManager, GroupMeetingManagerInterface $groupMeetingManager)
+    public function showChildInGroupMeetingContext(
+      Request $request,
+      string $groupMeetingFileId,
+      string $fileId,
+      GroupMeetingManagerInterface $groupMeetingManager,
+      ChildManagerInterface $childManager,
+      ChildMeasurementsManagerInterface $childMeasurementsManager
+    )
     {
 
         $groupMeeting = $groupMeetingManager->get($groupMeetingFileId);
@@ -43,11 +52,26 @@ class ChildController extends AbstractController
             // Add form to create new measurements.
             $childMeasurements = new ChildMeasurements();
 
+            $childMeasurements->setGroupMeeting($groupMeeting->getFileId());
+
             $now = new \DateTime();
             $fileId = $now->format('Y-m-d-H:i');
-
             $childMeasurements->setFileId($fileId);
+
             $form = $this->createForm(ChildMeasurementsType::class, $childMeasurements);
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // $form->getData() holds the submitted values
+                // but, the original `$task` variable has also been updated
+                $childMeasurementsNewData = $form->getData();
+
+                // @todo: Validate.
+
+
+                dump($childMeasurementsNewData);
+                $childMeasurementsManager->create($child->getFileId(), $fileId, $childMeasurementsNewData);
+            }
         }
 
 
@@ -55,7 +79,7 @@ class ChildController extends AbstractController
           'child' => $child,
           'group_meeting' => $groupMeeting,
           'measurements_from_group_meeting_index' => $measurementsFromGroupMeetingIndex,
-          'form' => $form,
+          'form' => $form ? $form->createView() : null,
         ]);
     }
 }
