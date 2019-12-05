@@ -15,11 +15,23 @@
         </a>
     </div>
 
+    {{ dump(child) }}
+
     <h1>
         {{ child.identifier.firstName }} {{ child.identifier.lastName }}
     </h1>
 
-    {{ dump(child) }}
+    {% if measurements_from_group_meeting_index is null %}
+        No measurements taken yet for this group meeting.
+    {% else %}
+        <div>
+            Measurements from this group session:
+        </div>
+        {{ dump(child.measurements[measurements_from_group_meeting_index]) }}
+    {% endif %}
+
+
+
 
 
 </div>

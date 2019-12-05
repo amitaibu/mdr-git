@@ -25,9 +25,22 @@ class ChildController extends AbstractController
             throw $this->createNotFoundException('Child not found.');
         }
 
+        // Check if Child already has measurements for the selected group
+        // meeting.
+        $measurementsFromGroupMeetingIndex = null;
+        $measurements = $child->getMeasurements() ?: [];
+        foreach ($measurements as $index => $measurement) {
+            if ($measurement->getGroupMeeting() == $groupMeeting->getFileId()) {
+                $measurementsFromGroupMeetingIndex = $index;
+                break;
+            }
+        }
+
+
         return $this->render('child/show.html.twig', [
           'child' => $child,
           'group_meeting' => $groupMeeting,
+          'measurements_from_group_meeting_index' => $measurementsFromGroupMeetingIndex,
         ]);
     }
 }
