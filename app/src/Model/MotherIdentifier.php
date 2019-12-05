@@ -18,29 +18,14 @@ class MotherIdentifier
 
     private $fileId;
 
-    /**
-     * @var string
-     */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @SerializedName("first_name")
-     */
     private $firstName;
 
-    /**
-     * @var string
-     *
-     * @SerializedName("last_name")
-     */
     private $lastName;
 
     /**
-     * @var \App\Model\ChildIdentifier[] | ArrayCollection
-     *
-     * @SerializedName("children")
+     * @var \App\Model\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection
      */
     private $childrenIdentifiers;
 

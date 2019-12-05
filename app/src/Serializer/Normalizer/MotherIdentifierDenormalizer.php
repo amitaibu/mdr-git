@@ -8,12 +8,10 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class MotherIdentifierDenormalizer extends ObjectNormalizer
 {
-    private $normalizer;
     private $motherManager;
 
-    public function __construct(ObjectNormalizer $normalizer, MotherManagerInterface $childManager)
+    public function __construct(MotherManagerInterface $childManager)
     {
-        $this->normalizer = $normalizer;
         $this->motherManager = $childManager;
     }
 

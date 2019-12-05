@@ -63,19 +63,20 @@ class MotherManager implements MotherManagerInterface
         $encoders = [new YamlEncoder()];
         $normalizers = [new ObjectNormalizer()];
 
-        $serializer = new Serializer($normalizers, $encoders);
+         $serializer = new Serializer($normalizers, $encoders);
+
 
         // Return on the first file.
         foreach ($finder as $file) {
 
             $motherFileContent = $file->getContents();
 
-            // @todo: Why doesn't normalize children?
             $mother = $serializer->deserialize($motherFileContent, $className, 'yaml');
 
             $path = explode('/', $file->getFileInfo()->getPath());
             $fileId = end($path);
             $mother->setFileId($fileId);
+
 
 //            $childrenIdentifiers = $serializer->deserialize($motherFileContent, ChildIdentifier::class, 'yaml');
 //            // @todo: Set file ID on childrenIdentifiers.
