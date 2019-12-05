@@ -36,8 +36,8 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
         $finder = new Finder();
         $finder
           ->files()
-          ->in($path)
-          ->name('/*/data.yaml');
+          ->in($path . '/*/')
+          ->name('data.yaml');
 
         if (!$finder->hasResults()) {
             return null;
@@ -48,8 +48,11 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
         foreach ($finder as $file) {
             $childMeasurements = $this->serializer->deserialize($file->getContents(), ChildMeasurements::class, 'yaml');
 
-            // @todo Add the file name.
-            // $childMeasurements->setFileId($file->getFilenameWithoutExtension());
+            // Add the File ID.
+            $path = explode('/', $file->getFileInfo()->getPath());
+            $fileId = end($path);
+            $childMeasurements->setFileId($fileId);
+
             $childrenMeasurements[] = $childMeasurements;
         }
 

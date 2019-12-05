@@ -7,12 +7,26 @@ namespace App\Model;
 class ChildMeasurements
 {
 
+    private $fileId;
     private $weight;
-
     private $height;
-
     private $photo;
 
+    /**
+     * @return mixed
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
+
+    /**
+     * @param mixed $fileId
+     */
+    public function setFileId($fileId): void
+    {
+        $this->fileId = $fileId;
+    }
 
     /**
      * @return mixed
@@ -61,5 +75,6 @@ class ChildMeasurements
     {
         $this->photo = $photo;
     }
+
 
 }

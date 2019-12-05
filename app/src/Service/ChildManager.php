@@ -62,7 +62,6 @@ class ChildManager implements ChildManagerInterface
             // Return on the first file.
 
             $fileContents = $file->getContents();
-            dump($fileContents);
 
             $child = $serializer->deserialize($fileContents, $className, 'yaml');
             $path = explode('/', $file->getFileInfo()->getPath());
@@ -78,9 +77,9 @@ class ChildManager implements ChildManagerInterface
 
                 $child->setIdentifier($childIdentifier);
 
-//                // Add measurements
-//                $measurements = $this->childMeasurementsManager->get($fileId);
-//                $child->setMeasurements($measurements);
+                // Add measurements
+                $measurements = $this->childMeasurementsManager->get($fileId);
+                $child->setMeasurements($measurements);
             }
 
             return $child;
