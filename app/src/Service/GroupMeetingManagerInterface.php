@@ -13,6 +13,6 @@ interface GroupMeetingManagerInterface
      */
     public function index();
 
-    public function get($fileName) : ?GroupMeeting;
+    public function get($fileId) : ?GroupMeeting;
 
 }

@@ -23,11 +23,11 @@ class GroupMeetingController extends AbstractController
     }
 
     /**
-     * @Route("/group-meetings/{fileName}", name="group_meeting")
+     * @Route("/group-meetings/{fileId}", name="group_meeting")
      */
-    public function showGroupMeeting(string $fileName, GroupMeetingManagerInterface $groupMeetingManager)
+    public function showGroupMeeting(string $fileId, GroupMeetingManagerInterface $groupMeetingManager)
     {
-        $groupMeeting = $groupMeetingManager->get($fileName);
+        $groupMeeting = $groupMeetingManager->get($fileId);
 
         return $this->render('group_meeting/show.html.twig', [
           'group_meeting' => $groupMeeting,

@@ -10,6 +10,12 @@
 
 <div class="example-wrapper">
 
+    <div>
+        <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
+            Back to group meeting {{  group_meeting.name }}
+        </a>
+    </div>
+
     {{ dump(mother) }}
 
     <h1>
