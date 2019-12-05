@@ -77,11 +77,6 @@ class MotherManager implements MotherManagerInterface
             $fileId = end($path);
             $mother->setFileId($fileId);
 
-
-//            $childrenIdentifiers = $serializer->deserialize($motherFileContent, ChildIdentifier::class, 'yaml');
-//            // @todo: Set file ID on childrenIdentifiers.
-//            $mother->setChildrenIdentifiers($childrenIdentifiers);
-
             // @todo: How to get Symfony to do this for us?
             if (Mother::class === $className) {
                 $motherIdentifier = $serializer->deserialize($motherFileContent, MotherIdentifier::class, 'yaml');

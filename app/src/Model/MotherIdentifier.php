@@ -25,7 +25,7 @@ class MotherIdentifier
     private $lastName;
 
     /**
-     * @var \App\Model\ChildIdentifier[]|\Doctrine\Common\Collections\ArrayCollection
+     * @var \App\Model\ChildIdentifier[] | \Doctrine\Common\Collections\ArrayCollection
      */
     private $childrenIdentifiers;
 
