@@ -22,22 +22,6 @@ class Child
      */
     private $identifier;
 
-       /**
-     * @return \App\Model\MotherIdentifier
-     */
-    public function getIdentifier(): \App\Model\MotherIdentifier
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param \App\Model\MotherIdentifier $identifier
-     */
-    public function setIdentifier(\App\Model\MotherIdentifier $identifier): void
-    {
-        $this->identifier = $identifier;
-    }
-
     /**
      * @return mixed
      */
@@ -52,6 +36,22 @@ class Child
     public function setFileId($fileId): void
     {
         $this->fileId = $fileId;
+    }
+
+    /**
+     * @return \App\Model\ChildIdentifier
+     */
+    public function getIdentifier(): \App\Model\ChildIdentifier
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param \App\Model\ChildIdentifier $identifier
+     */
+    public function setIdentifier(\App\Model\ChildIdentifier $identifier): void
+    {
+        $this->identifier = $identifier;
     }
 
 }

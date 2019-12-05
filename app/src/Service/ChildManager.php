@@ -67,7 +67,14 @@ class ChildManager implements ChildManagerInterface
 
             $child->setFileId($fileId);
 
+            // @todo: How to get Symfony to do this for us?
+            if (Child::class === $className) {
+                /** @var ChildIdentifier $childIdentifier */
+                $childIdentifier = $serializer->deserialize($fileContents, ChildIdentifier::class, 'yaml');
+                $childIdentifier->setFileId($fileId);
 
+                $child->setIdentifier($childIdentifier);
+            }
 
             return $child;
         }
