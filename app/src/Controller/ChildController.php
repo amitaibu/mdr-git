@@ -71,6 +71,9 @@ class ChildController extends AbstractController
 
                 dump($childMeasurementsNewData);
                 $childMeasurementsManager->create($child->getFileId(), $fileId, $childMeasurementsNewData);
+
+                // Reload page.
+                return $this->redirect($request->getUri());
             }
         }
 
