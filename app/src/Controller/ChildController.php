@@ -8,6 +8,7 @@ use App\Service\ChildManagerInterface;
 use App\Service\ChildMeasurementsManagerInterface;
 use App\Service\GroupMeetingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -56,12 +57,12 @@ class ChildController extends AbstractController
             $childMeasurements->setGroupMeeting($groupMeeting->getFileId());
 
             $now = new \DateTime();
-            $fileId = $now->format('Y-m-d-H:i');
-            $childMeasurements->setFileId($fileId);
+            $childMeasurementsFileId = $now->format('Y-m-d-H:i');
+            $childMeasurements->setFileId($childMeasurementsFileId);
         }
         else {
             // Existing measurements.
-            $fileId = $childMeasurements->getFileId();
+            $childMeasurementsFileId = $childMeasurements->getFileId();
             $hasExistingMeasurements = true;
         }
 
@@ -72,11 +73,48 @@ class ChildController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
+            /** @var ChildMeasurements $childMeasurementsNewData */
             $childMeasurementsNewData = $form->getData();
+
+            /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $photoFile */
+            $photoFile = $form['photo']->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($photoFile) {
+                $originalFilename = pathinfo(
+                  $photoFile->getClientOriginalName(),
+                  PATHINFO_FILENAME
+                );
+
+                // We don't use transliterator_transliterate, since it requires
+                // Php-intl, and it's not part of Termux packages.
+                $safeFilename = strtolower(preg_replace('/[[:^print:]]/', '', $originalFilename));
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $photoFile->move(
+                      $this->getParameter('child_photos_directory'),
+                      $newFilename
+                    );
+
+                    $childMeasurementsNewData->setPhoto($newFilename);
+
+                    // Copy file to data folder.
+                    // @todo: Move to service.
+                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
+                    $filesystem = new Filesystem();
+                    $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+            }
+
 
             // @todo: Validate.
 
-            $childMeasurementsManager->create($child->getFileId(), $fileId, $childMeasurementsNewData);
+            $childMeasurementsManager->create($child->getFileId(), $childMeasurementsFileId, $childMeasurementsNewData);
 
             // Reload page.
             return $this->redirect($request->getUri());

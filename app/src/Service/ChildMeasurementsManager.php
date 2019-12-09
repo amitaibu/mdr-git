@@ -60,16 +60,24 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 
 
             $photo = null;
-            if ($filesystem->exists($path . '/photo.png')) {
-                // To serve this image we need to temporarily copy it
-                // to be under `public`.
-                $target = 'child/photos/' . $fileId . '.png';
-                $filesystem->copy($path . '/photo.png', $target, true);
-                $package = new Package(new EmptyVersionStrategy());
+            $extensions = ['jpg', 'png'];
+            foreach ($extensions as $extension) {
+                $fileName = 'photo.' . $extension;
+                if ($filesystem->exists($path . '/' . $fileName)) {
+                    // To serve this image we need to temporarily copy it
+                    // to be under `public`.
+                    $target = 'child/photos/' . $fileId . '.'  . $fileName;
+                    $filesystem->copy($path . '/' . $fileName, $target, true);
+                    $package = new Package(new EmptyVersionStrategy());
 
-                // Absolute path
-                $photo = $package->getUrl('/' . $target);
+                    // Absolute path
+                    $photo = $package->getUrl('/' . $target);
+
+                    // We have an image.
+                    break;
+                }
             }
+
 
             $childMeasurements->setPhoto($photo);
 
@@ -96,9 +104,12 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 
         $filesystem->dumpFile($path, Yaml::dump($encoded));
 
+
 //        Commit files!
 //        $repo = new GitRepository('.');
 //        $repo->addFile($path);
 //        $repo->commit('Create or update measurements for ' . $childFileId);
+
+        // @todo: Add also photo.
     }
 }
