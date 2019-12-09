@@ -103,7 +103,7 @@ class ChildController extends AbstractController
 
                     // Copy file to data folder.
                     // @todo: Move to service.
-                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.' . $photoFile->getExtension();
+                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
                     $filesystem = new Filesystem();
                     $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
                 } catch (FileException $e) {

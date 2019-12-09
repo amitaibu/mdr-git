@@ -63,7 +63,7 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
             $extensions = ['jpg', 'png'];
             foreach ($extensions as $extension) {
                 $fileName = 'photo.' . $extension;
-                if ($filesystem->exists($path . $fileName)) {
+                if ($filesystem->exists($path . '/' . $fileName)) {
                     // To serve this image we need to temporarily copy it
                     // to be under `public`.
                     $target = 'child/photos/' . $fileId . '.'  . $fileName;
