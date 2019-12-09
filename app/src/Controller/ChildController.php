@@ -74,6 +74,38 @@ class ChildController extends AbstractController
             // but, the original `$task` variable has also been updated
             $childMeasurementsNewData = $form->getData();
 
+            /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $photoFile */
+            $photoFile = $form['photo']->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($photoFile) {
+                $originalFilename = pathinfo(
+                  $photoFile->getClientOriginalName(),
+                  PATHINFO_FILENAME
+                );
+
+                // We don't use transliterator_transliterate, since it requires
+                // Php-intl, and it's not part of Termux packages.
+                $safeFilename = strtolower(preg_replace('/[[:^print:]]/', '', $originalFilename));
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $photoFile->move(
+                      $this->getParameter('child_photos_directory'),
+                      $newFilename
+                    );
+
+                    // @todo: Copy file to data folder.
+
+
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+            }
+
+
             // @todo: Validate.
 
             $childMeasurementsManager->create($child->getFileId(), $fileId, $childMeasurementsNewData);
