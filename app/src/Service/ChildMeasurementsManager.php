@@ -96,6 +96,7 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 
         $filesystem->dumpFile($path, Yaml::dump($encoded));
 
+
 //        Commit files!
 //        $repo = new GitRepository('.');
 //        $repo->addFile($path);

@@ -8,6 +8,7 @@ use App\Service\ChildManagerInterface;
 use App\Service\ChildMeasurementsManagerInterface;
 use App\Service\GroupMeetingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -56,12 +57,12 @@ class ChildController extends AbstractController
             $childMeasurements->setGroupMeeting($groupMeeting->getFileId());
 
             $now = new \DateTime();
-            $fileId = $now->format('Y-m-d-H:i');
-            $childMeasurements->setFileId($fileId);
+            $childMeasurementsFileId = $now->format('Y-m-d-H:i');
+            $childMeasurements->setFileId($childMeasurementsFileId);
         }
         else {
             // Existing measurements.
-            $fileId = $childMeasurements->getFileId();
+            $childMeasurementsFileId = $childMeasurements->getFileId();
             $hasExistingMeasurements = true;
         }
 
@@ -72,6 +73,7 @@ class ChildController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
+            /** @var ChildMeasurements $childMeasurementsNewData */
             $childMeasurementsNewData = $form->getData();
 
             /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $photoFile */
@@ -97,7 +99,15 @@ class ChildController extends AbstractController
                       $newFilename
                     );
 
-                    // @todo: Copy file to data folder.
+                    $childMeasurementsNewData->setPhoto($newFilename);
+
+                    // Copy file to data folder.
+                    // @todo: Move to service.
+                    // @todo: Should always be JPEG, or move info into
+                    // data.yaml?
+                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.jpg';
+                    $filesystem = new Filesystem();
+                    $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
 
 
                 } catch (FileException $e) {
@@ -108,7 +118,7 @@ class ChildController extends AbstractController
 
             // @todo: Validate.
 
-            $childMeasurementsManager->create($child->getFileId(), $fileId, $childMeasurementsNewData);
+            $childMeasurementsManager->create($child->getFileId(), $childMeasurementsFileId, $childMeasurementsNewData);
 
             // Reload page.
             return $this->redirect($request->getUri());
