@@ -1,0 +1,4 @@
+version: 1
+group_meeting: 2020-01-30-morning
+height: !!float 12
+weight: !!float 16
