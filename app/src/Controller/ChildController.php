@@ -103,13 +103,9 @@ class ChildController extends AbstractController
 
                     // Copy file to data folder.
                     // @todo: Move to service.
-                    // @todo: Should always be JPEG, or move info into
-                    // data.yaml?
-                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.jpg';
+                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.' . $photoFile->getExtension();
                     $filesystem = new Filesystem();
                     $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
-
-
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
