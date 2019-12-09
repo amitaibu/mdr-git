@@ -106,9 +106,9 @@ class ChildMeasurementsManager implements ChildMeasurementsManagerInterface
 
 
 //        Commit files!
-//        $repo = new GitRepository('.');
-//        $repo->addFile($path);
-//        $repo->commit('Create or update measurements for ' . $childFileId);
+        $repo = new GitRepository('.');
+        $repo->addFile($path);
+        $repo->commit('Create or update measurements for ' . $childFileId);
 
         // @todo: Add also photo.
     }
