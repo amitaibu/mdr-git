@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GroupMeetingController extends AbstractController
 {
     /**
-     * @Route("/group-meetings", name="group_meetings")
+     * @Route("/", name="group_meetings")
      *
      * Show list of all group meetings.
      */
