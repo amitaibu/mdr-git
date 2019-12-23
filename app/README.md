@@ -2,8 +2,8 @@ Navigate to http://localhost:8000
 
 ## Install
 
-composer install
-yarn install
+    composer install
+    yarn install
 
 ## Termux
 
