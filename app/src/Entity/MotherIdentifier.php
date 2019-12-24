@@ -112,5 +112,9 @@ class MotherIdentifier
         $this->fileId = $fileId;
     }
 
+    public function getFullName(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
 
 }

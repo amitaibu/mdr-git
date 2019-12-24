@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Service\GroupMeetingManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -37,13 +38,19 @@ class AddMotherToGroupMeeting extends Command
     {
         $helper = $this->getHelper('question');
 
-        $groupMeetings = $this->groupMeetingManager->index();
-        $groupMeetingsName = [];
+        $groupMeetings = [];
+
         /** @var \App\Entity\GroupMeeting $groupMeeting */
+        foreach ($this->groupMeetingManager->index() as $groupMeeting) {
+            // Key group meetings by the file ID.
+            $groupMeetings[$groupMeeting->getFileId()] = $groupMeeting;
+        }
+
+        $groupMeetingsName = [];
+
         foreach ($groupMeetings as $groupMeeting) {
             $groupMeetingsName[$groupMeeting->getFileId()] = $groupMeeting->getName();
         }
-
 
         $question = new ChoiceQuestion(
           'Please select a Group meeting',
@@ -51,8 +58,25 @@ class AddMotherToGroupMeeting extends Command
         );
         $question->setErrorMessage('Group meeting %s is invalid.');
 
-        $color = $helper->ask($input, $output, $question);
-        $output->writeln('You have just selected: '.$color);
+        $selected = $helper->ask($input, $output, $question);
+
+        $output->writeln('<info>Info for Group meeting: '.$selected . '</info>');
+
+        $rows = [];
+        $groupMeeting = $groupMeetings[$selected];
+        $count = 1;
+
+        /** @var \App\Entity\MotherIdentifier $motherIdentifier */
+        foreach ($groupMeeting->getMotherIdentifiers() as $motherIdentifier) {
+            $rows[] = [$count, $motherIdentifier->getFullName()];
+            ++$count;
+        }
+
+        $table = new Table($output);
+        $table
+            ->setHeaders(['#', 'Mother name'])
+            ->setRows($rows)
+            ->render();
 
         return 0;
     }
