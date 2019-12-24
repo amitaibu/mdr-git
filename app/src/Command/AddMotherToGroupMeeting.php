@@ -60,7 +60,7 @@ class AddMotherToGroupMeeting extends Command
 
         $selected = $helper->ask($input, $output, $question);
 
-        $output->writeln('<info>Info for Group meeting: '.$selected . '</info>');
+        $output->writeln('Info for Group meeting: <info>'.$selected . '</info>');
 
         $rows = [];
         $groupMeeting = $groupMeetings[$selected];
