@@ -1,20 +1,82 @@
-@import "tachyons.min.css";
+@import 'normalize';
+@import 'variables';
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@import '~font-awesome/css/font-awesome.css';
+@import url('https://unpkg.com/purecss@1.0.1/build/forms-min.css');
 
-#page-container {
-  position: relative;
-  min-height: 100vh;
-
-  background: url('./images/undraw_social_user_lff0.svg') 100% 0 no-repeat;
-  background-size: contain;
+* {
+ box-sizing: border-box;
 }
 
-#content-wrap {
-  padding-bottom: 2.5rem;    /* Footer height */
+body {
+  font-family: 'Nunito', sans-serif;
+  color: $white;
+  background-color: $blue-primary;
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+header {
+  height: 100px;
+  width: 100%;
+  background-color: $blue-secondary;
+  position: absolute;
+  top: 0;
+  border-bottom: 4px solid $gray;
+
+  .container, .content {
+    height: 100%;
+  }
+
+  .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .app-title {
+      font-size: 3em;
+    }
+  }
+}
+
+main {
+  padding: 40px 0;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;            /* Footer height */
+ position: absolute;
+ bottom: 0;
+ height: 100px;
+ width: 100%;
+ color: $black;
+ background-color: $gray;
+}
+
+
+h1 {
+  border-bottom: 1px solid $gray;
+}
+
+.page-wrapper {
+ min-height: 100vh;
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-top: 100px;
+ padding-bottom: 100px;
+}
+
+.container {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }

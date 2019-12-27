@@ -3,23 +3,19 @@
 {% block title %}Hello GroupMeetingController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
 <div class="example-wrapper">
     <div>
         <a href="{{ path('group_meetings') }}">
-            Back to group meetings
+          <i class="fa fa-reply" aria-hidden="true"></i> Back to group meetings
         </a>
     </div>
 
     <h1>{{ group_meeting.name }}</h1>
 
-    <ul>
+    <ul class="fa-ul">
         {% for motherIdentifier in group_meeting.motherIdentifiers %}
-            <li>
+            <li><i class="fa fa-female" aria-hidden="true"></i>
                 <a href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: motherIdentifier.fileId}) }}">
                     {{ motherIdentifier.firstName }} {{ motherIdentifier.lastName }}
                 </a>
