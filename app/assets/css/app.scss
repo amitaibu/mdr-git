@@ -154,3 +154,16 @@ ul.app-list {
     font-weight: bold;
   }
 }
+
+.labeled-measurement {
+  .measurement {
+    display: flex;
+
+    span {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-left: 0.65em;
+    }
+  }
+}
