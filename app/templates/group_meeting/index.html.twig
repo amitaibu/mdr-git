@@ -7,7 +7,6 @@
 <div class="app-page">
   <h1>Group Meetings</h1>
 
-<<<<<<< HEAD
   <ul class="group-meetings app-list">
 
     {% for group_meeting in group_meetings %}
@@ -17,14 +16,6 @@
             <div class="item-name">
               {{ group_meeting.name }}
             </div>
-=======
-  <ul class="group-meetings app-list fa-ul">
-
-    {% for group_meeting in group_meetings %}
-      <li><i class="fa fa-calendar" aria-hidden="true"></i>
-        <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
-            {{ group_meeting.name }}
->>>>>>> origin/master
         </a>
       </li>
     {% endfor %}
