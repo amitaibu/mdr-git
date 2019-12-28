@@ -26,6 +26,23 @@ body {
   }
 }
 
+.page-wrapper {
+ min-height: 100vh;
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-top: 100px;
+ padding-bottom: 100px;
+}
+
+.container {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 header {
   height: 100px;
   width: 100%;
@@ -34,11 +51,8 @@ header {
   top: 0;
   border-bottom: 4px solid $gray;
 
-  .container, .content {
+  .header-content {
     height: 100%;
-  }
-
-  .content{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -66,26 +80,8 @@ section {
   margin: 40px 0;
 }
 
-
 h1 {
   border-bottom: 1px solid $gray;
-}
-
-.page-wrapper {
- min-height: 100vh;
- overflow: hidden;
- display: block;
- position: relative;
- padding-top: 100px;
- padding-bottom: 100px;
-}
-
-.container {
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 //Child page

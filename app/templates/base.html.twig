@@ -10,31 +10,25 @@
   <body>
     <div class="page-wrapper">
       <header class="header">
-        <div class="container">
-          <div class="content">
-            <div class="app-title"><i class="fa fa-code-fork" aria-hidden="true"></i> MDR-GIT</div>
-          </div>
+        <div class="container header-content">
+          <div class="app-title"><i class="fa fa-code-fork" aria-hidden="true"></i> MDR-GIT</div>
         </div>
       </header>
 
       <main class="main">
-        <div class="container">
-          <div class="content">
+        <div class="container main-content">
 
-            {% block body %}{% endblock %}
-            {% block javascripts %}
-                {{ encore_entry_script_tags('app') }}
-            {% endblock %}
+          {% block body %}{% endblock %}
+          {% block javascripts %}
+              {{ encore_entry_script_tags('app') }}
+          {% endblock %}
 
-          </div>
         </div>
       </main>
 
       <footer class="footer">
-        <div class="container">
-          <div class="content">
-            <p class="copyright">© {{ "now"|date("Y") }}</p>
-          </div>
+        <div class="container footer-content">
+          <p class="copyright">© {{ "now"|date("Y") }}</p>
         </div>
       </footer>
     </div>
