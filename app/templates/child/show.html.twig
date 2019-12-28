@@ -6,10 +6,16 @@
 
 
 <div class="example-wrapper">
-    <div>
-        <a href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: child.identifier.mother}) }}">
-            <i class="fa fa-reply" aria-hidden="true"></i> Back to mother
-        </a>
+    <div class="app-navigation">
+      <a class="pure-button item" href="/">
+          <i class="fa fa-home" aria-hidden="true"></i>Home
+      </a>
+
+      <a class="pure-button item" href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: child.identifier.mother}) }}">
+          <i class="fa fa-reply" aria-hidden="true"></i>Back to mother
+      </a>
+
+
     </div>
 
     <h1>

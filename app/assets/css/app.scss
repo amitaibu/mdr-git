@@ -49,10 +49,6 @@ header {
   }
 }
 
-main {
-  padding: 40px 0;
-}
-
 footer {
  position: absolute;
  bottom: 0;
@@ -92,5 +88,37 @@ table.measurements {
 
   tbody tr {
     height: 100px;
+  }
+}
+
+// Button mods
+.pure-button {
+  background-color: $gray;
+  color: $blue-secondary;
+}
+
+a.pure-button,
+a.pure-button:focus,
+a.pure-button:hover {
+  text-decoration: none;
+}
+
+//App navigation
+.app-navigation {
+  margin: 20px 0;
+  display: flex;
+
+  .item {
+    margin-right: 1em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a.pure-button {
+    i {
+      margin-right: .65em;
+    }
   }
 }

@@ -5,10 +5,14 @@
 {% block body %}
 
 <div class="example-wrapper">
-    <div>
-        <a href="{{ path('group_meetings') }}">
-          <i class="fa fa-reply" aria-hidden="true"></i> Back to group meetings
-        </a>
+    <div class="app-navigation">
+      <a class="pure-button item" href="/">
+          <i class="fa fa-home" aria-hidden="true"></i>Home
+      </a>
+
+      <a class="pure-button item" href="{{ path('group_meetings') }}">
+        <i class="fa fa-reply" aria-hidden="true"></i>Back to group meetings
+      </a>
     </div>
 
     <h1>{{ group_meeting.name }}</h1>
