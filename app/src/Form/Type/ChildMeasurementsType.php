@@ -45,7 +45,7 @@ class ChildMeasurementsType extends AbstractType
           ])
           ->add('save', SubmitType::class,
             [
-              'attr' => ['class' => 'pure-button'],
+              'attr' => ['class' => 'pure-button pure-button-primary'],
             ]
           );
     }
