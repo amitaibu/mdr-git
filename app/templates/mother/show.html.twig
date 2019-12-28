@@ -21,9 +21,9 @@
         {{ mother.identifier.firstName }} {{ mother.identifier.lastName }}
     </h1>
 
-    <ul>
+    <ul class="fa-ul children app-list">
         {% for childIdentifier in mother.identifier.childrenIdentifiers %}
-            <li>
+            <li><i class="fa fa-child" aria-hidden="true"></i>
                 <a href="{{ path('child', {groupMeetingFileId: group_meeting.fileId, fileId: childIdentifier.fileId}) }}">
                     {{ childIdentifier.firstName }} {{ childIdentifier.lastName }}
                 </a>

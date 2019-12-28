@@ -7,9 +7,9 @@
 <div class="example-wrapper">
     <h1>Group Meetings</h1>
 
-    <ul>
+    <ul class="group-meetings app-list fa-ul">
         {% for group_meeting in group_meetings %}
-            <li>
+            <li><i class="fa fa-calendar" aria-hidden="true"></i>
                 <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
                     {{ group_meeting.name }}
                 </a>

@@ -17,7 +17,7 @@
 
     <h1>{{ group_meeting.name }}</h1>
 
-    <ul class="fa-ul">
+    <ul class="fa-ul mothers app-list">
         {% for motherIdentifier in group_meeting.motherIdentifiers %}
             <li><i class="fa fa-female" aria-hidden="true"></i>
                 <a href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: motherIdentifier.fileId}) }}">

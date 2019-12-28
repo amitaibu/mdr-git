@@ -49,6 +49,10 @@ header {
   }
 }
 
+main {
+  margin-bottom: 40px;
+}
+
 footer {
  position: absolute;
  bottom: 0;
@@ -119,6 +123,20 @@ a.pure-button:hover {
   a.pure-button {
     i {
       margin-right: .65em;
+    }
+  }
+}
+
+//lists
+ul.app-list {
+  margin-left: 0.5em;
+  font-size: 1.2em;
+
+  li {
+    margin-bottom: 1em;
+
+    i {
+      margin-right: .4em;
     }
   }
 }
