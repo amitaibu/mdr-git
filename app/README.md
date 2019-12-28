@@ -7,7 +7,7 @@ Navigate to http://localhost:8000
 
 ## Termux
 
-	php -S localhost:8080 -t public -c custom-php.ini
+    php -S localhost:8080 -t public -c custom-php.ini
 
 ### Console Commands
 
