@@ -5,92 +5,94 @@
 {% block body %}
 
 <div class="app-page">
-    <div class="app-navigation">
-      <a class="pure-button item" href="/">
-          <i class="fa fa-home" aria-hidden="true"></i>Home
-      </a>
-      <a class="pure-button item" href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: child.identifier.mother}) }}">
-          <i class="fa fa-reply" aria-hidden="true"></i>Back to mother
-      </a>
+  <div class="app-navigation">
+    <a class="pure-button item" href="/">
+        <i class="fa fa-home" aria-hidden="true"></i>Home
+    </a>
+    <a class="pure-button item" href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: child.identifier.mother}) }}">
+        <i class="fa fa-reply" aria-hidden="true"></i>Back to mother
+    </a>
+  </div>
+
+  <h1>
+
+    {{ child.identifier.firstName }} {{ child.identifier.lastName }}
+
+  </h1>
+
+  <section class="edit measurements">
+
+    {% if has_existing_measurements %}
+
+      <h3>Edit Existing Measurements</h3>
+
+    {% else %}
+
+      <h3>Add New Measurements</h3>
+
+    {% endif %}
+
+    <div class="app-form">
+      {% form_theme form 'forms/form-rows.html.twig' %}
+
+      {{ form_start(form, {'attr': {'class': 'pure-form pure-form-stacked'}}) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.height) }}
+        {{ form_row(form.weight) }}
+        {{ form_row(form.photo) }}
+      {{ form_end(form) }}
+
     </div>
+  </section>
 
-    <h1>
-        {{ child.identifier.firstName }} {{ child.identifier.lastName }}
-    </h1>
+  <section class="all-measurements">
+    <h3>All measurements</h3>
 
-    <section class="edit measurements">
+    {% if child.measurements is not null %}
 
-      {% if has_existing_measurements %}
+      <table class="pure-table measurements">
+        <thead>
+          <tr>
+            <th>Group meeting</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Image</th>
+          </tr>
+        </thead>
 
-        <h3>Edit Existing Measurements</h3>
+        <tbody>
 
-      {% else %}
+          {% for measurements in child.measurements %}
 
-        <h3>Add New Measurements</h3>
-
-      {% endif %}
-
-      <div class="app-form">
-        {% form_theme form 'forms/form-rows.html.twig' %}
-
-        {{ form_start(form, {'attr': {'class': 'pure-form pure-form-stacked'}}) }}
-          {{ form_errors(form) }}
-
-          {{ form_row(form.height) }}
-          {{ form_row(form.weight) }}
-          {{ form_row(form.photo) }}
-        {{ form_end(form) }}
-
-      </div>
-    </section>
-
-    <section class="all-measurements">
-      <h3>All measurements</h3>
-
-      {% if child.measurements is not null %}
-
-        <table class="pure-table measurements">
-          <thead>
             <tr>
-              <th>Group meeting</th>
-              <th>Height</th>
-              <th>Weight</th>
-              <th>Image</th>
+              <td>{{ measurements.groupMeeting }}</td>
+              <td>{{ measurements.height }} cm</td>
+              <td>{{ measurements.weight }} kg</td>
+              <td>
+
+                {% if measurements.photo is not null %}
+
+                  <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>
+
+                {% endif %}
+
+              </td>
             </tr>
-          </thead>
 
-          <tbody>
+          {% endfor %}
 
-            {% for measurements in child.measurements %}
+        </tbody>
+      </table>
 
-              <tr>
-                <td>{{ measurements.groupMeeting }}</td>
-                <td>{{ measurements.height }} cm</td>
-                <td>{{ measurements.weight }} kg</td>
-                <td>
+    {% else %}
 
-                  {% if measurements.photo is not null %}
+      <div class="no-measurements-message">
+          Child has no measurements.
+      </div>
 
-                    <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>
+    {% endif %}
 
-                  {% endif %}
-
-                </td>
-              </tr>
-
-            {% endfor %}
-
-          </tbody>
-        </table>
-
-      {% else %}
-
-        <div class="no-measurements-message">
-            Child has no measurements.
-        </div>
-
-      {% endif %}
-
-    </section>
+  </section>
 
 {% endblock %}
