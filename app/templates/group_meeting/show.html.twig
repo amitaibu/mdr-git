@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GroupMeetingController!{% endblock %}
+{% block title %}Group meeting{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <div>
-        <a href="{{ path('group_meetings') }}">
-            Back to group meetings
-        </a>
+<div class="app-page">
+    <div class="app-navigation">
+      <a class="pure-button item" href="/">
+          <i class="fa fa-home" aria-hidden="true"></i>Home
+      </a>
+
+      <a class="pure-button item" href="{{ path('group_meetings') }}">
+        <i class="fa fa-reply" aria-hidden="true"></i>Back to group meetings
+      </a>
     </div>
 
     <h1>{{ group_meeting.name }}</h1>
 
-    <ul>
+    <ul class="fa-ul mothers app-list">
         {% for motherIdentifier in group_meeting.motherIdentifiers %}
-            <li>
+            <li><i class="fa fa-female" aria-hidden="true"></i>
                 <a href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: motherIdentifier.fileId}) }}">
                     {{ motherIdentifier.firstName }} {{ motherIdentifier.lastName }}
                 </a>
@@ -27,9 +27,9 @@
         {% endfor %}
     </ul>
 
-    <details>
-        {{ dump(group_meeting) }}
-    </details>
+{#    <details>#}
+{#        {{ dump(group_meeting) }}#}
+{#    </details>#}
 
 </div>
 {% endblock %}

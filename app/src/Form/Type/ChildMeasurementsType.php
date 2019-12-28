@@ -43,8 +43,11 @@ class ChildMeasurementsType extends AbstractType
               ])
             ],
           ])
-          ->add('save', SubmitType::class)
-        ;
+          ->add('save', SubmitType::class,
+            [
+              'attr' => ['class' => 'pure-button pure-button-primary'],
+            ]
+          );
     }
 
     public function configureOptions(OptionsResolver $resolver)

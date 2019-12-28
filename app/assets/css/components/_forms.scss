@@ -1,0 +1,30 @@
+// Form Overrides
+
+//App Forms
+.form-item {
+  margin: 1.5em 0;
+
+  label {
+    font-weight: bold;
+  }
+}
+
+.labeled-measurement {
+  .measurement {
+    display: flex;
+
+    span {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-left: 0.65em;
+    }
+  }
+}
+
+.error-message {
+  color: $red;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin: 0.5em 0;
+}

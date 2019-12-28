@@ -1,0 +1,55 @@
+{% block form_row %}
+
+    <div class="form-item">
+      {{ form_label(form) }}
+      {{ form_errors(form) }}
+      {{ form_widget(form) }}
+    </div>
+
+{% endblock %}
+
+{% block _child_measurements_height_row %}
+  <div class="form-item labeled-measurement">
+
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+
+    <div class="measurement">
+
+      {{ form_widget(form) }}
+
+      <span>cm</span>
+    </div>
+  </div>
+{% endblock %}
+
+{% block _child_measurements_weight_row %}
+  <div class="form-item labeled-measurement">
+
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+
+    <div class="measurement">
+
+      {{ form_widget(form) }}
+
+      <span>kg</span>
+    </div>
+  </div>
+{% endblock %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        {% if compound %}
+            <ul class="form-errors">
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+          <div class="error-message">
+            This value is not valid.
+          </div>
+        {% endif %}
+    {% endif %}
+{% endblock form_errors %}
