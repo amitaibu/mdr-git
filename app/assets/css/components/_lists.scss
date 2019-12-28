@@ -2,12 +2,24 @@
 ul.app-list {
   margin-left: 0.5em;
   font-size: 1.2em;
+  list-style-type: none;
 
   li {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
 
-    i {
-      margin-right: .4em;
+    .item {
+      display: flex;
+
+      i {
+        font-size: 2.5em;
+        margin-right: .4em;
+      }
+
+      .item-name {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
     }
   }
 }
