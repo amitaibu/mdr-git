@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="header">
+        <div class="container header-content">
+          <div class="app-title"><i class="fa fa-code-fork" aria-hidden="true"></i> MDR-GIT</div>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container main-content">
+
+          {% block body %}{% endblock %}
+          {% block javascripts %}
+              {{ encore_entry_script_tags('app') }}
+          {% endblock %}
+
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-content">
+          <p class="copyright">© {{ "now"|date("Y") }}</p>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

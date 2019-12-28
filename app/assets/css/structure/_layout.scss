@@ -1,0 +1,64 @@
+// Page Layouts and Sections
+
+// Wrappers and containers
+* {
+ box-sizing: border-box;
+}
+
+.page-wrapper {
+ min-height: 100vh;
+ overflow: hidden;
+ display: block;
+ position: relative;
+ padding-top: 100px;
+ padding-bottom: 100px;
+}
+
+.container {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+// Header Section
+header {
+  height: 100px;
+  width: 100%;
+  background-color: $blue-secondary;
+  position: absolute;
+  top: 0;
+  border-bottom: 4px solid $gray;
+
+  .header-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .app-title {
+      font-size: 3em;
+    }
+  }
+}
+
+// Main Section
+main {
+  margin-bottom: 40px;
+}
+
+// Footer Section
+footer {
+ position: absolute;
+ bottom: 0;
+ height: 100px;
+ width: 100%;
+ color: $black;
+ background-color: $gray;
+}
+
+// Content-Based Sections
+section {
+  margin: 40px 0;
+}

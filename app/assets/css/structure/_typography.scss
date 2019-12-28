@@ -1,0 +1,23 @@
+// Typography
+
+// Body Fonts
+body {
+  font-size: 125%;
+  font-family: 'Nunito', sans-serif;
+  color: $white;
+  background-color: $blue-primary;
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Headers
+h1 {
+  border-bottom: 1px solid $gray;
+}

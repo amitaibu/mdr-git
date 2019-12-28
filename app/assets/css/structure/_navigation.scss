@@ -1,0 +1,19 @@
+// App Navigation
+.app-navigation {
+  margin: 20px 0;
+  display: flex;
+
+  .item {
+    margin-right: 1em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a.pure-button {
+    i {
+      margin-right: .65em;
+    }
+  }
+}
