@@ -4,6 +4,11 @@
   color: $blue-secondary;
 }
 
+.pure-button.pure-button-primary {
+  background-color: $blue-secondary;
+  color: $white;
+}
+
 a.pure-button,
 a.pure-button:focus,
 a.pure-button:hover {
