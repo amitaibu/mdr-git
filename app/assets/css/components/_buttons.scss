@@ -1,0 +1,11 @@
+// Button Overrides
+.pure-button {
+  background-color: $gray;
+  color: $blue-secondary;
+}
+
+a.pure-button,
+a.pure-button:focus,
+a.pure-button:hover {
+  text-decoration: none;
+}

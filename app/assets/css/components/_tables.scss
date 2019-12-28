@@ -1,0 +1,12 @@
+// Table Overrides
+
+//Child Measuremnts Table
+table.measurements {
+  background-color: $white;
+  color: $black;
+  width: 100%;
+
+  tbody tr {
+    height: 100px;
+  }
+}
