@@ -32,34 +32,49 @@
 
 
     {% if child.measurements is not null %}
-        <div>
-            <h3>All measurements</h3>
-            <details>
-                <ul>
-                    {% for measurements in child.measurements %}
-                        <li>
-                            <div>Group meeting: {{ measurements.groupMeeting }}</div>
-                            <div>Height: {{ measurements.height }} cm</div>
-                            <div>Weight: {{ measurements.weight }} kg</div>
-                            {% if measurements.photo is not null %}
-                            <div>
-                                <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>
-                            </div>
-                            {% endif %}
+      <div class="all-measurements">
+        <h3>All measurements</h3>
+            <table class="pure-table measurements">
+              <thead>
+                <tr>
+                  <th>Group meeting</th>
+                  <th>Height</th>
+                  <th>Weight</th>
+                  <th>Image</th>
+                </tr>
+              </thead>
 
+              <tbody>
 
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% for measurements in child.measurements %}
 
-            </details>
-        </div>
-    {% else %}
-        <div>
-            Child has no measurements ever taken.
-        </div>
-    {% endif %}
+                  <tr>
+                    <td>{{ measurements.groupMeeting }}</td>
+                    <td>{{ measurements.height }} cm</td>
+                    <td>{{ measurements.weight }} kg</td>
+                    <td>
 
+                      {% if measurements.photo is not null %}
 
-</div>
+                          <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>
+
+                      {% endif %}
+
+                    </td>
+                  </tr>
+
+                {% endfor %}
+
+              </tbody>
+            </table>
+
+          {% else %}
+
+            <div class="no-measurements-message">
+                Child has no measurements ever taken.
+            </div>
+
+          {% endif %}
+
+      </div>
 {% endblock %}
