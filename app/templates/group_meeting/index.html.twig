@@ -7,12 +7,15 @@
 <div class="app-page">
   <h1>Group Meetings</h1>
 
-  <ul class="group-meetings app-list fa-ul">
+  <ul class="group-meetings app-list">
 
     {% for group_meeting in group_meetings %}
-      <li><i class="fa fa-calendar" aria-hidden="true"></i>
-        <a href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
-            {{ group_meeting.name }}
+      <li>
+        <a class="item" href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <div class="item-name">
+              {{ group_meeting.name }}
+            </div>
         </a>
       </li>
     {% endfor %}
