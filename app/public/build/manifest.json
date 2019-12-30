@@ -1,14 +1,13 @@
 {
-  "build/app.css": "/build/app.css",
-  "build/app.js": "/build/app.js",
-  "build/runtime.js": "/build/runtime.js",
-  "build/vendors~app.css": "/build/vendors~app.css",
-  "build/vendors~app.js": "/build/vendors~app.js",
-  "build/fonts/fontawesome-webfont.eot?v=4.7.0": "/build/fonts/fontawesome-webfont.674f50d2.eot",
+  "build/0.b2c84940.css": "/build/0.b2c84940.css",
+  "build/0.511e7bf1.js": "/build/0.511e7bf1.js",
+  "build/app.css": "/build/app.450ef2fc.css",
+  "build/app.js": "/build/app.251f3c98.js",
+  "build/runtime.js": "/build/runtime.5e3ab09c.js",
+  "build/fonts/fontawesome-webfont.eot": "/build/fonts/fontawesome-webfont.674f50d2.eot",
   "build/fonts/fontawesome-webfont.woff2?v=4.7.0": "/build/fonts/fontawesome-webfont.af7ae505.woff2",
   "build/fonts/fontawesome-webfont.ttf?v=4.7.0": "/build/fonts/fontawesome-webfont.b06871f2.ttf",
   "build/fonts/fontawesome-webfont.woff?v=4.7.0": "/build/fonts/fontawesome-webfont.fee66e71.woff",
-  "build/images/fontawesome-webfont.svg?v=4.7.0": "/build/images/fontawesome-webfont.912ec66d.svg",
   "build/fonts/nunito-v12-latin-800.ttf": "/build/fonts/nunito-v12-latin-800.26ffd477.ttf",
   "build/fonts/nunito-v12-latin-800.eot": "/build/fonts/nunito-v12-latin-800.3798c4c2.eot",
   "build/fonts/nunito-v12-latin-800.woff": "/build/fonts/nunito-v12-latin-800.5fa815a0.woff",
@@ -17,6 +16,7 @@
   "build/fonts/nunito-v12-latin-regular.ttf": "/build/fonts/nunito-v12-latin-regular.458ce5de.ttf",
   "build/fonts/nunito-v12-latin-regular.woff2": "/build/fonts/nunito-v12-latin-regular.508e414e.woff2",
   "build/fonts/nunito-v12-latin-regular.woff": "/build/fonts/nunito-v12-latin-regular.e5875b85.woff",
+  "build/images/fontawesome-webfont.svg?v=4.7.0": "/build/images/fontawesome-webfont.912ec66d.svg",
   "build/images/nunito-v12-latin-800.svg": "/build/images/nunito-v12-latin-800.afbd5a7a.svg",
   "build/images/nunito-v12-latin-regular.svg": "/build/images/nunito-v12-latin-regular.528e8ad4.svg"
 }
