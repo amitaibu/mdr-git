@@ -13,8 +13,7 @@ Navigate to http://localhost:8000
 
 ## Install on Termux
 
-First install [Termux](https://termux.com/)
-Start Termux and enter the following commands:
+First install [Termux](https://termux.com/), start it and enter the following commands:
 
     # Install Git & PHP
     pkg install git
