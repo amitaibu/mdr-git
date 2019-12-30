@@ -10,14 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Go to app directory
-      run: cd app && ls -al && pwd
-      
     - name: Validate composer.json and composer.lock
-      run: composer validate
+      run: cd app && composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: cd app && composer install --prefer-dist --no-progress --no-suggest
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
