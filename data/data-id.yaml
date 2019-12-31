@@ -3,6 +3,7 @@ name: Muhundo
 # Type can be: health_center, region.
 type: health_center
 country: RWA
-length_measurment: cm
-weight_measurment: kg
+measurments: cm
+  length: cm
+  measurment: kg
 
