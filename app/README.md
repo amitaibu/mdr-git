@@ -21,10 +21,10 @@ First install [Termux](https://termux.com/), start it and enter the following co
 
     # Install Git & PHP
     pkg install git
-    pkg install
+    pkg install php
 
     # Clone repo
-    git@github.com:amitaibu/mdr-git.git
+    git clone https://github.com/amitaibu/mdr-git.git 
     cd mdr-git/app
 
     # Download composer, as per instructions from https://getcomposer.org/download/
@@ -35,7 +35,7 @@ First install [Termux](https://termux.com/), start it and enter the following co
 
     # Install packages
     php composer.phar install    
-        
+
 
 ## Console Commands
 
@@ -48,8 +48,7 @@ Example to show using Console commands.
 Execute the following while developing CSS & JS
 
     yarn encore dev --watch
-    
+
 When ready to publish, minify assets, and commit built files
 
     yarn encore production
-
