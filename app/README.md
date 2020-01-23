@@ -8,7 +8,7 @@ Or on a device, as in production
 
     APP_ENV=prod APP_DEBUG=0 php -S localhost:8080 -t public -c custom-php.ini
 
-Navigate to http://localhost:8000
+Navigate to http://localhost:8080
 
 ## Install for Local Dev
 
