@@ -1,81 +1,43 @@
 <?php
 
-
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Mother
+ * @ORM\Entity(repositoryClass="App\Repository\MotherRepository")
  *
  * Hold the full Mother data.
- *
- * @package App\Entity
  */
 class Mother
 {
-
-    private $fileId;
-
     /**
-     * @var \App\Entity\MotherIdentifier
+     * @ORM\Id()
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
-    private $identifier;
+    private $id;
 
     /**
-     * @var bool
-     *
-     * @SerializedName("birthday_estiamted")
+     * @ORM\Column(type="boolean")
      */
     private $birthdayEstimated;
 
-    /**
-     * @return \App\Entity\MotherIdentifier
-     */
-    public function getIdentifier(): ?\App\Entity\MotherIdentifier
+    public function getId(): ?string
     {
-        return $this->identifier;
+        return $this->id;
     }
 
-    /**
-     * @param \App\Entity\MotherIdentifier $identifier
-     */
-    public function setIdentifier(\App\Entity\MotherIdentifier $identifier): void
-    {
-        $this->identifier = $identifier;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isBirthdayEstimated()
+    public function getBirthdayEstimated(): ?bool
     {
         return $this->birthdayEstimated;
     }
 
-    /**
-     * @param bool $birthdayEstimated
-     */
-    public function setBirthdayEstimated(bool $birthdayEstimated): void
+    public function setBirthdayEstimated(bool $birthdayEstimated): self
     {
         $this->birthdayEstimated = $birthdayEstimated;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getFileId()
-    {
-        return $this->fileId;
+        return $this;
     }
-
-    /**
-     * @param mixed $fileId
-     */
-    public function setFileId($fileId): void
-    {
-        $this->fileId = $fileId;
-    }
-
 }
