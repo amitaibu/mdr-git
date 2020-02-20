@@ -41,9 +41,15 @@ class Mother
      */
     private $lastName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendanceList", mappedBy="mother")
+     */
+    private $groupMeetingAttendanceLists;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->groupMeetingAttendanceLists = new ArrayCollection();
     }
 
 
@@ -115,6 +121,37 @@ class Mother
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupMeetingAttendanceList[]
+     */
+    public function getGroupMeetingAttendanceLists(): Collection
+    {
+        return $this->groupMeetingAttendanceLists;
+    }
+
+    public function addGroupMeetingAttendanceList(GroupMeetingAttendanceList $groupMeetingAttendanceList): self
+    {
+        if (!$this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendanceLists[] = $groupMeetingAttendanceList;
+            $groupMeetingAttendanceList->setMother($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupMeetingAttendanceList(GroupMeetingAttendanceList $groupMeetingAttendanceList): self
+    {
+        if ($this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendanceLists->removeElement($groupMeetingAttendanceList);
+            // set the owning side to null (unless already changed)
+            if ($groupMeetingAttendanceList->getMother() === $this) {
+                $groupMeetingAttendanceList->setMother(null);
+            }
+        }
 
         return $this;
     }

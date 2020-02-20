@@ -17,32 +17,20 @@ class GroupMeetingAttendanceList
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendanceList", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $groupMeeting;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Mother", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Mother", inversedBy="groupMeetingAttendanceLists")
      * @ORM\JoinColumn(nullable=false)
      */
     private $mother;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendanceLists")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupMeeting;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGroupMeeting(): ?GroupMeeting
-    {
-        return $this->groupMeeting;
-    }
-
-    public function setGroupMeeting(GroupMeeting $groupMeeting): self
-    {
-        $this->groupMeeting = $groupMeeting;
-
-        return $this;
     }
 
     public function getMother(): ?Mother
@@ -50,11 +38,24 @@ class GroupMeetingAttendanceList
         return $this->mother;
     }
 
-    public function setMother(Mother $mother): self
+    public function setMother(?Mother $mother): self
     {
         $this->mother = $mother;
 
         return $this;
     }
+
+    public function getGroupMeeting(): ?GroupMeeting
+    {
+        return $this->groupMeeting;
+    }
+
+    public function setGroupMeeting(?GroupMeeting $groupMeeting): self
+    {
+        $this->groupMeeting = $groupMeeting;
+
+        return $this;
+    }
+
 
 }
