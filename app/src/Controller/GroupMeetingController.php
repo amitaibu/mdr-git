@@ -29,8 +29,20 @@ class GroupMeetingController extends AbstractController
     public function show(GroupMeeting $groupMeeting, GroupMeetingAttendanceListRepository $groupMeetingAttendanceListRepository)
     {
 
+        $mothers = [];
+        foreach ($groupMeeting->getGroupMeetingAttendanceLists() as $groupMeetingAttendanceList) {
+            $mothers[] = $groupMeetingAttendanceList->getMother();
+        }
+
+        // Sort mothers by first name.
+        usort($mothers, function($a, $b) {
+            return strcmp($a->getFirstName(), $b->getFirstName());
+        });
+
+
         return $this->render('group_meeting/show.html.twig', [
-          'group_meeting_attendance_lists' => $groupMeeting->getGroupMeetingAttendanceLists(),
+          'group_meeting' => $groupMeeting,
+          'mothers' => $mothers,
         ]);
     }
 }

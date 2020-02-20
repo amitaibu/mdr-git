@@ -98,4 +98,5 @@ class GroupMeeting
 
         return $this;
     }
+
 }

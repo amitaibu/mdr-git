@@ -57,5 +57,4 @@ class GroupMeetingAttendanceList
         return $this;
     }
 
-
 }
