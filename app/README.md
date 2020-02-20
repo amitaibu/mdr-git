@@ -27,13 +27,6 @@ First install [Termux](https://termux.com/), start it and enter the following co
     pkg install mariadb
     mysqld_safe
     
-    # Install SQLite
-    pkg install sqlite
-    
-    
-    # Now Follow https://wiki.termux.com/wiki/MariaDB
-
-
     # Clone repo
     git clone https://github.com/amitaibu/mdr-git.git 
     cd mdr-git/app
@@ -45,8 +38,12 @@ First install [Termux](https://termux.com/), start it and enter the following co
     php -r "unlink('composer-setup.php');"
 
     # Install packages
-    php composer.phar install    
+    php composer.phar install
 
+    # Setup SQLite
+    pkg install sqlite
+    php bin/console doctrine:migrations:migrate
+    php bin/console doctrine:fixtures:load
 
 ## Console Commands
 
