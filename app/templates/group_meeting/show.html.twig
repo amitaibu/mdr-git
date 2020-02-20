@@ -15,7 +15,9 @@
       </a>
     </div>
 
-    <h1>{{ group_meeting.name }}</h1>
+    <h1>{{ group_meeting_attendance_list.groupMeeting.name }}</h1>
+
+    {{ dump(group_meeting_attendance_lists) }}
 
 {#    <ul class="mothers app-list">#}
 {#        {% for motherIdentifier in group_meeting.motherIdentifiers %}#}

@@ -30,11 +30,6 @@ class GroupMeeting
     private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\GroupMeetingAttendanceList", mappedBy="groupMeeting", cascade={"persist", "remove"})
-     */
-    private $groupMeetingAttendanceList;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendanceList", mappedBy="groupMeeting")
      */
     private $groupMeetingAttendanceLists;
@@ -69,23 +64,6 @@ class GroupMeeting
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getGroupMeetingAttendanceList(): ?GroupMeetingAttendanceList
-    {
-        return $this->groupMeetingAttendanceList;
-    }
-
-    public function setGroupMeetingAttendanceList(GroupMeetingAttendanceList $groupMeetingAttendanceList): self
-    {
-        $this->groupMeetingAttendanceList = $groupMeetingAttendanceList;
-
-        // set the owning side of the relation if necessary
-        if ($groupMeetingAttendanceList->getGroupMeeting() !== $this) {
-            $groupMeetingAttendanceList->setGroupMeeting($this);
-        }
 
         return $this;
     }
