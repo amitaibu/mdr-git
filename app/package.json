@@ -16,6 +16,5 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "font-awesome": "^4.7.0"
     }
 }
