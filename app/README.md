@@ -22,6 +22,17 @@ First install [Termux](https://termux.com/), start it and enter the following co
     # Install Git & PHP
     pkg install git
     pkg install php
+    
+    # Install MariaDB
+    pkg install mariadb
+    mysqld_safe
+    
+    # Install SQLite
+    pkg install sqlite
+    
+    
+    # Now Follow https://wiki.termux.com/wiki/MariaDB
+
 
     # Clone repo
     git clone https://github.com/amitaibu/mdr-git.git 
