@@ -30,7 +30,7 @@ class GroupMeetingController extends AbstractController
     {
 
         return $this->render('group_meeting/show.html.twig', [
-          'group_meeting_attendance_lists' => $groupMeeting->getGroupMeetingAttendanceList(),
+          'group_meeting_attendance_lists' => $groupMeeting->getGroupMeetingAttendanceLists(),
         ]);
     }
 }
