@@ -16,10 +16,10 @@ class GroupMeetingController extends AbstractController
      */
     public function index(GroupMeetingAttendanceListRepository $groupMeetingAttendanceListRepository)
     {
-        $groupMeetings = $groupMeetingAttendanceListRepository->findAll();
+        $groupMeetingsAttendanceList = $groupMeetingAttendanceListRepository->findAll();
 
         return $this->render('group_meeting/index.html.twig', [
-            'group_meetings' => $groupMeetings,
+            'group_meeting_attendance_list' => $groupMeetingsAttendanceList,
         ]);
     }
 

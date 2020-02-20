@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class GroupMeeting
 {
     /**
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
@@ -44,7 +44,7 @@ class GroupMeeting
         $this->groupMeetingAttendanceLists = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
