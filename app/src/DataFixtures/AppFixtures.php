@@ -30,6 +30,8 @@ class AppFixtures extends Fixture
                 $child->setFirstName($faker->firstNameFemale);
                 $child->setLastName($faker->lastName);
                 $child->setMother($mother);
+
+                $manager->persist($child);
             }
 
             $manager->persist($mother);
@@ -60,6 +62,7 @@ class AppFixtures extends Fixture
             }
 
             $manager->persist($groupMeetingAttendanceList);
+
         }
 
         $manager->flush();
