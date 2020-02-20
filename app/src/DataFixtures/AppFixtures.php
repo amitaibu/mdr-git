@@ -15,20 +15,20 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        $faker = Faker\Factory::create();
+        $faker = \Faker\Factory::create();
 
         // Create Mothers and children.
         $mothers = [];
         for ($i = 0; $i < 20; $i++) {
             $mother = new Mother();
             $mother->setFirstName($faker->firstNameFemale);
-            $mother->setLastName($faker->lastNameFemale);
+            $mother->setLastName($faker->lastName);
             $mother->setBirthdayEstimated(False);
 
             for ($j = 0; $j < 3; $j++) {
                 $child = new Child();
                 $child->setFirstName($faker->firstNameFemale);
-                $child->setLastName($faker->lastNameFemale);
+                $child->setLastName($faker->lastName);
                 $child->setMother($mother);
             }
 
@@ -55,7 +55,7 @@ class AppFixtures extends Fixture
             $groupMeetingAttendanceList->setGroupMeeting($groupMeetings[$counter]);
 
             $counter++;
-            if ($counter > count($groupMeetings)) {
+            if ($counter >= count($groupMeetings)) {
                 $counter = 0;
             }
 
