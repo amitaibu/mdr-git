@@ -36,7 +36,7 @@ First install [Termux](https://termux.com/), start it and enter the following co
     # Install packages
     php composer.phar install
 
-    # Setup SQLite
+    # Setup SQLite, create tables, and add dummy content.
     pkg install sqlite
     php bin/console doctrine:migrations:migrate
     php bin/console doctrine:fixtures:load
