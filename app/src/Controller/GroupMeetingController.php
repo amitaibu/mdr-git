@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\GroupMeetingAttendanceListRepository;
 use App\Service\GroupMeetingManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,9 +14,9 @@ class GroupMeetingController extends AbstractController
      *
      * Show list of all group meetings.
      */
-    public function index(GroupMeetingManagerInterface $groupMeetingManager)
+    public function index(GroupMeetingAttendanceListRepository $groupMeetingAttendanceListRepository)
     {
-        $groupMeetings = $groupMeetingManager->index();
+        $groupMeetings = $groupMeetingAttendanceListRepository->findAll();
 
         return $this->render('group_meeting/index.html.twig', [
             'group_meetings' => $groupMeetings,
@@ -23,11 +24,11 @@ class GroupMeetingController extends AbstractController
     }
 
     /**
-     * @Route("/group-meetings/{fileId}", name="group_meeting")
+     * @Route("/group-meetings/{id}", name="group_meeting")
      */
-    public function showGroupMeeting(string $fileId, GroupMeetingManagerInterface $groupMeetingManager)
+    public function show(string $id, GroupMeetingAttendanceListRepository $groupMeetingAttendanceListRepository)
     {
-        $groupMeeting = $groupMeetingManager->get($fileId);
+        $groupMeeting = $groupMeetingAttendanceListRepository->find($id);
 
         if (!$groupMeeting) {
             throw $this->createNotFoundException('Group meeting not found.');

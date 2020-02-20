@@ -11,7 +11,7 @@
 
     {% for group_meeting in group_meetings %}
       <li>
-        <a class="item" href="{{ path('group_meeting', {fileId: group_meeting.fileId}) }}">
+        <a class="item" href="{{ path('group_meeting', {id: group_meeting.id}) }}">
             <i class="fa fa-calendar" aria-hidden="true"></i>
             <div class="item-name">
               {{ group_meeting.name }}
