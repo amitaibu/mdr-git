@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
         $groupMeetings = [];
         for ($i = 0; $i < 3; $i++) {
             $groupMeeting = new GroupMeeting();
-            $groupMeeting->setName('product '.$i);
+            $groupMeeting->setName($faker->city);
             $groupMeeting->setDate($faker->dateTime);
 
             $manager->persist($groupMeeting);
