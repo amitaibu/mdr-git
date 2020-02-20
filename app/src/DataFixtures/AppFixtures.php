@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
 
         // Create Mothers and children.
         $mothers = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $mother = new Mother();
             $mother->setFirstName($faker->firstNameFemale);
             $mother->setLastName($faker->lastName);
