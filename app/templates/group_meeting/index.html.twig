@@ -9,7 +9,7 @@
 
   <ul class="group-meetings app-list">
 
-    {% for row in group_meetings_attendance_list %}
+    {% for row in group_meetings_attendances %}
       <li>
         <a class="item" href="{{ path('group_meeting', {id: row.groupMeeting.id}) }}">
             <i class="fa fa-calendar" aria-hidden="true"></i>

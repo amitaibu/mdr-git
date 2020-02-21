@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * A single attendance of a mother in a group meeting.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\GroupMeetingAttendanceListRepository")
  */
-class GroupMeetingAttendanceList
+class GroupMeetingAttendance
 {
     /**
      * @ORM\Id()

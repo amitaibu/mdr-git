@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Child;
 use App\Entity\GroupMeeting;
-use App\Entity\GroupMeetingAttendanceList;
+use App\Entity\GroupMeetingAttendance;
 use App\Entity\Mother;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
         // Create group meetings attendance list.
         $counter = 0;
         foreach ($mothers as $mother) {
-            $groupMeetingAttendanceList = new GroupMeetingAttendanceList();
+            $groupMeetingAttendanceList = new GroupMeetingAttendance();
             $groupMeetingAttendanceList->setMother($mother);
             $groupMeetingAttendanceList->setGroupMeeting($groupMeetings[$counter]);
 

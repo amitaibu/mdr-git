@@ -30,7 +30,7 @@ class GroupMeeting
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendanceList", mappedBy="groupMeeting")
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="groupMeeting")
      */
     private $groupMeetingAttendanceLists;
 
@@ -69,14 +69,14 @@ class GroupMeeting
     }
 
     /**
-     * @return Collection|GroupMeetingAttendanceList[]
+     * @return Collection|GroupMeetingAttendance[]
      */
     public function getGroupMeetingAttendanceLists(): Collection
     {
         return $this->groupMeetingAttendanceLists;
     }
 
-    public function addGroupMeetingAttendanceList(GroupMeetingAttendanceList $groupMeetingAttendanceList): self
+    public function addGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
     {
         if (!$this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
             $this->groupMeetingAttendanceLists[] = $groupMeetingAttendanceList;
@@ -86,7 +86,7 @@ class GroupMeeting
         return $this;
     }
 
-    public function removeGroupMeetingAttendanceList(GroupMeetingAttendanceList $groupMeetingAttendanceList): self
+    public function removeGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
     {
         if ($this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
             $this->groupMeetingAttendanceLists->removeElement($groupMeetingAttendanceList);

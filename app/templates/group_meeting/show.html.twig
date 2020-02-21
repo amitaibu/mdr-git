@@ -21,8 +21,8 @@
         {% for mother in mothers %}
 
             <li>
-{#                {{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: motherIdentifier.fileId}) }}#}
-                <a class="item" href="">
+
+                <a class="item" href="{{ path('mother', {groupMeeting: group_meeting.id, mother: mother.id}) }}">
                     <i class="fa fa-female" aria-hidden="true"></i>
                     <div class="item-name">
                         {{ mother.firstName }} {{ mother.lastName }}
