@@ -42,11 +42,12 @@ class AppFixtures extends Fixture
                 $child->setLastName($faker->lastName);
                 $child->setMother($mother);
 
-                $groupMeetingAttendance = new GroupMeetingAttendance();
-                $groupMeetingAttendance->setPerson($mother);
-                $groupMeetingAttendance->setGroupMeeting($groupMeetings[0]);
-
                 $manager->persist($child);
+
+                $groupMeetingAttendance = new GroupMeetingAttendance();
+                $groupMeetingAttendance->setPerson($child);
+                $groupMeetingAttendance->setGroupMeeting($groupMeetings[0]);
+                $manager->persist($groupMeetingAttendance);
             }
 
             $manager->persist($mother);

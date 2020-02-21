@@ -25,7 +25,7 @@ class GroupMeetingAttendance
     private $person;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendancesZ")
+     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendances")
      * @ORM\JoinColumn(nullable=false)
      */
     private $groupMeeting;
