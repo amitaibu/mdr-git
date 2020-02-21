@@ -25,8 +25,10 @@
                 <a class="item" href="{{ path('mother', {groupMeetingAttendance: group_meeting_attendance.id}) }}">
                     <i class="fa fa-female" aria-hidden="true"></i>
                     <div class="item-name">
-                        {{ group_meeting_attendance.mother.firstName }} {{ group_meeting_attendance.mother.lastName }}
+                        {{ group_meeting_attendance.person.firstName }} {{ group_meeting_attendance.person.lastName }}
                     </div>
+
+                    {{ dump(group_meeting_attendance.person) }}
                 </a>
             </li>
         {% endfor %}

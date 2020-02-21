@@ -39,6 +39,7 @@ class GroupMeeting
         $this->groupMeetingAttendances = new ArrayCollection();
     }
 
+
     public function getId()
     {
         return $this->id;
@@ -76,23 +77,23 @@ class GroupMeeting
         return $this->groupMeetingAttendances;
     }
 
-    public function addGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendanceList): self
+    public function addGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendancesZ): self
     {
-        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
-            $this->groupMeetingAttendances[] = $groupMeetingAttendanceList;
-            $groupMeetingAttendanceList->setGroupMeeting($this);
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendancesZ)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendancesZ;
+            $groupMeetingAttendancesZ->setGroupMeeting($this);
         }
 
         return $this;
     }
 
-    public function removeGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendanceList): self
+    public function removeGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendancesZ): self
     {
-        if ($this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
-            $this->groupMeetingAttendances->removeElement($groupMeetingAttendanceList);
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendancesZ)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendancesZ);
             // set the owning side to null (unless already changed)
-            if ($groupMeetingAttendanceList->getGroupMeeting() === $this) {
-                $groupMeetingAttendanceList->setGroupMeeting(null);
+            if ($groupMeetingAttendancesZ->getGroupMeeting() === $this) {
+                $groupMeetingAttendancesZ->setGroupMeeting(null);
             }
         }
 

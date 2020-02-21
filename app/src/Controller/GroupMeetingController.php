@@ -33,11 +33,10 @@ class GroupMeetingController extends AbstractController
           ->getGroupMeetingAttendances()
           ->toArray();
 
-        // Sort attendance by Mother's first name.
+        // Sort attendance by the person's first name.
         usort($groupMeetingAttendances, function($a, $b) {
-            return strcmp($a->getMother()->getFirstName(), $b->getMother()->getFirstName());
+            return strcmp($a->getPerson()->getFirstName(), $b->getPerson()->getFirstName());
         });
-
 
         return $this->render('group_meeting/show.html.twig', [
           'group_meeting' => $groupMeeting,

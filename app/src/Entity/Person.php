@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ abstract class Person
      */
     private $lastName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="person")
+     */
+    private $groupMeetingAttendances;
+
+    public function __construct()
+    {
+        $this->groupMeetingAttendances = new ArrayCollection();
+    }
+
 
 
     public function getId(): ?int
@@ -57,6 +69,37 @@ abstract class Person
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupMeetingAttendance[]
+     */
+    public function getGroupMeetingAttendances(): Collection
+    {
+        return $this->groupMeetingAttendances;
+    }
+
+    public function addGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendance): self
+    {
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendance)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendance;
+            $groupMeetingAttendance->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendance): self
+    {
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendance)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendance);
+            // set the owning side to null (unless already changed)
+            if ($groupMeetingAttendance->getPerson() === $this) {
+                $groupMeetingAttendance->setPerson(null);
+            }
+        }
 
         return $this;
     }
