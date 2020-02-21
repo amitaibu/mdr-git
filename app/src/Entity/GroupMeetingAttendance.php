@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A single attendance of a mother in a group meeting.
+ * A single attendance of a Person in a group meeting.
  *
  * @ORM\Entity(repositoryClass="App\Repository\GroupMeetingAttendanceListRepository")
  */
@@ -35,12 +35,12 @@ class GroupMeetingAttendance
         return $this->id;
     }
 
-    public function getPerson(): ?Mother
+    public function getPerson(): ?Person
     {
         return $this->person;
     }
 
-    public function setPerson(?Mother $person): self
+    public function setPerson(?Person $person): self
     {
         $this->person = $person;
 

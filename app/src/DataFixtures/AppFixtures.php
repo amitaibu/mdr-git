@@ -17,6 +17,17 @@ class AppFixtures extends Fixture
 
         $faker = \Faker\Factory::create();
 
+        // Create group meetings.
+        $groupMeetings = [];
+        for ($i = 0; $i < 3; $i++) {
+            $groupMeeting = new GroupMeeting();
+            $groupMeeting->setName($faker->city . ' ' . $faker->word);
+            $groupMeeting->setDate($faker->dateTime);
+
+            $manager->persist($groupMeeting);
+            $groupMeetings[] = $groupMeeting;
+        }
+
         // Create Mothers and children.
         $mothers = [];
         for ($i = 0; $i < 100; $i++) {
@@ -31,6 +42,10 @@ class AppFixtures extends Fixture
                 $child->setLastName($faker->lastName);
                 $child->setMother($mother);
 
+                $groupMeetingAttendance = new GroupMeetingAttendance();
+                $groupMeetingAttendance->setPerson($mother);
+                $groupMeetingAttendance->setGroupMeeting($groupMeetings[0]);
+
                 $manager->persist($child);
             }
 
@@ -38,31 +53,19 @@ class AppFixtures extends Fixture
             $mothers[] = $mother;
         }
 
-        // Create group meetings.
-        $groupMeetings = [];
-        for ($i = 0; $i < 3; $i++) {
-            $groupMeeting = new GroupMeeting();
-            $groupMeeting->setName($faker->city . ' ' . $faker->word);
-            $groupMeeting->setDate($faker->dateTime);
-
-            $manager->persist($groupMeeting);
-            $groupMeetings[] = $groupMeeting;
-        }
-
         // Create group meetings attendance list.
         $counter = 0;
         foreach ($mothers as $mother) {
-            $groupMeetingAttendanceList = new GroupMeetingAttendance();
-            $groupMeetingAttendanceList->setPerson($mother);
-            $groupMeetingAttendanceList->setGroupMeeting($groupMeetings[$counter]);
+            $groupMeetingAttendance = new GroupMeetingAttendance();
+            $groupMeetingAttendance->setPerson($mother);
+            $groupMeetingAttendance->setGroupMeeting($groupMeetings[$counter]);
 
             $counter++;
             if ($counter >= count($groupMeetings)) {
                 $counter = 0;
             }
 
-            $manager->persist($groupMeetingAttendanceList);
-
+            $manager->persist($groupMeetingAttendance);
         }
 
         $manager->flush();

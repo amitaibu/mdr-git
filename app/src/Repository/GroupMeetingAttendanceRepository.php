@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method GroupMeetingAttendance[]    findAll()
  * @method GroupMeetingAttendance[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GroupMeetingAttendanceListRepository extends ServiceEntityRepository
+class GroupMeetingAttendanceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

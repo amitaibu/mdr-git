@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\GroupMeeting;
-use App\Repository\GroupMeetingAttendanceListRepository;
+use App\Repository\GroupMeetingAttendanceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,9 +14,9 @@ class GroupMeetingController extends AbstractController
      *
      * Show list of all group meetings.
      */
-    public function index(GroupMeetingAttendanceListRepository $groupMeetingAttendanceListRepository)
+    public function index(GroupMeetingAttendanceRepository $groupMeetingAttendanceRepository)
     {
-        $groupMeetingsAttendances = $groupMeetingAttendanceListRepository->findAll();
+        $groupMeetingsAttendances = $groupMeetingAttendanceRepository->findAll();
 
         return $this->render('group_meeting/index.html.twig', [
             'group_meetings_attendances' => $groupMeetingsAttendances,
