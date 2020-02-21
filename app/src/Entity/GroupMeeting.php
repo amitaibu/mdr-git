@@ -32,11 +32,11 @@ class GroupMeeting
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="groupMeeting")
      */
-    private $groupMeetingAttendanceLists;
+    private $groupMeetingAttendances;
 
     public function __construct()
     {
-        $this->groupMeetingAttendanceLists = new ArrayCollection();
+        $this->groupMeetingAttendances = new ArrayCollection();
     }
 
     public function getId()
@@ -71,25 +71,25 @@ class GroupMeeting
     /**
      * @return Collection|GroupMeetingAttendance[]
      */
-    public function getGroupMeetingAttendanceLists(): Collection
+    public function getGroupMeetingAttendances(): Collection
     {
-        return $this->groupMeetingAttendanceLists;
+        return $this->groupMeetingAttendances;
     }
 
-    public function addGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
+    public function addGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendanceList): self
     {
-        if (!$this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
-            $this->groupMeetingAttendanceLists[] = $groupMeetingAttendanceList;
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendanceList;
             $groupMeetingAttendanceList->setGroupMeeting($this);
         }
 
         return $this;
     }
 
-    public function removeGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
+    public function removeGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendanceList): self
     {
-        if ($this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
-            $this->groupMeetingAttendanceLists->removeElement($groupMeetingAttendanceList);
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendanceList);
             // set the owning side to null (unless already changed)
             if ($groupMeetingAttendanceList->getGroupMeeting() === $this) {
                 $groupMeetingAttendanceList->setGroupMeeting(null);

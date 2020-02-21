@@ -26,23 +26,22 @@ class GroupMeetingController extends AbstractController
     /**
      * @Route("/group-meetings/{id}", name="group_meeting")
      */
-    public function show(GroupMeeting $groupMeeting, GroupMeetingAttendanceListRepository $groupMeetingAttendanceListRepository)
+    public function show(GroupMeeting $groupMeeting)
     {
 
-        $mothers = [];
-        foreach ($groupMeeting->getGroupMeetingAttendanceLists() as $groupMeetingAttendanceList) {
-            $mothers[] = $groupMeetingAttendanceList->getMother();
-        }
+        $groupMeetingAttendances = $groupMeeting
+          ->getGroupMeetingAttendances()
+          ->toArray();
 
-        // Sort mothers by first name.
-        usort($mothers, function($a, $b) {
-            return strcmp($a->getFirstName(), $b->getFirstName());
+        // Sort attendance by Mother's first name.
+        usort($groupMeetingAttendances, function($a, $b) {
+            return strcmp($a->getMother()->getFirstName(), $b->getMother()->getFirstName());
         });
 
 
         return $this->render('group_meeting/show.html.twig', [
           'group_meeting' => $groupMeeting,
-          'mothers' => $mothers,
+          'group_meeting_attendances' => $groupMeetingAttendances,
         ]);
     }
 }

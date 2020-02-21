@@ -12,9 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class MotherController extends AbstractController
 {
     /**
-     * @Route("/group-meetings/{groupMeetingAttendanceList}/mother/{mother}", name="mother")
+     * @Route("/group-meetings/mother/{groupMeetingAttendance}", name="mother")
      */
-    public function showMotherInGroupMeetingContext(GroupMeetingAttendance $groupMeetingAttendance, Mother $mother)
+    public function showMotherInGroupMeetingContext(GroupMeetingAttendance $groupMeetingAttendance)
     {
 
         return $this->render('mother/show.html.twig', [
