@@ -17,8 +17,20 @@ class MotherController extends AbstractController
     public function showMotherInGroupMeetingContext(GroupMeetingAttendance $groupMeetingAttendance)
     {
 
+        $children = $groupMeetingAttendance
+          ->getMother()
+          ->getChildren()
+          ->toArray();
+
+        // Sort children by first name.
+        usort($children, function($a, $b) {
+            return strcmp($a->getFirstName(), $b->getFirstName());
+        });
+
+
         return $this->render('mother/show.html.twig', [
             'group_meeting_attendance' => $groupMeetingAttendance,
+            'children' => $children,
         ]);
     }
 }

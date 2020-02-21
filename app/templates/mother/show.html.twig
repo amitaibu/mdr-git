@@ -11,8 +11,8 @@
           <i class="fa fa-home" aria-hidden="true"></i>Home
       </a>
 
-      <a class="pure-button item" href="{{ path('group_meeting', {id: group_meeting.id}) }}">
-        <i class="fa fa-reply" aria-hidden="true"></i>Back to group meeting {{  group_meeting_attendance.group_meeting.name }}
+      <a class="pure-button item" href="{{ path('group_meeting', {id: group_meeting_attendance.groupMeeting.id}) }}">
+        <i class="fa fa-reply" aria-hidden="true"></i>Back to group meeting {{  group_meeting_attendance.groupMeeting.name }}
       </a>
 
     </div>
@@ -21,18 +21,19 @@
         {{ group_meeting_attendance.mother.firstName }} {{ group_meeting_attendance.mother.lastName }}
     </h1>
 
-{#    <ul class="fa-ul children app-list">#}
-{#        {% for childIdentifier in mother.identifier.childrenIdentifiers %}#}
-{#            <li>#}
-{#                <a class="item" href="{{ path('child', {groupMeetingFileId: group_meeting.fileId, fileId: childIdentifier.fileId}) }}">#}
-{#                    <i class="fa fa-child" aria-hidden="true"></i>#}
-{#                    <div class="item-name">#}
-{#                      {{ childIdentifier.firstName }} {{ childIdentifier.lastName }}#}
-{#                    </div>#}
-{#                </a>#}
-{#            </li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
+    <ol class="fa-ul children app-list">
+        {% for child in children %}
+            <li>
+{#                {{ path('child', {groupMeetingFileId: group_meeting.fileId, fileId: childIdentifier.fileId}) }}#}
+                <a class="item" href="">
+                    <i class="fa fa-child" aria-hidden="true"></i>
+                    <div class="item-name">
+                      {{ child.firstName }} {{ child.lastName }}
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ol>
 
 {#    <details>#}
 {#        {{ dump(mother) }}#}

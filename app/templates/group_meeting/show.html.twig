@@ -17,7 +17,7 @@
 
     <h1>Group meeting: {{ group_meeting.name }}</h1>
 
-    <ul class="mothers app-list">
+    <ol class="mothers app-list">
         {% for group_meeting_attendance in group_meeting_attendances %}
 
             <li>
@@ -30,7 +30,7 @@
                 </a>
             </li>
         {% endfor %}
-    </ul>
+    </ol>
 
 {#    <ul class="mothers app-list">#}
 {#        {% for motherIdentifier in group_meeting.motherIdentifiers %}#}
