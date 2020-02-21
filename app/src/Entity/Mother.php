@@ -44,12 +44,12 @@ class Mother
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="mother")
      */
-    private $groupMeetingAttendanceLists;
+    private $groupMeetingAttendances;
 
     public function __construct()
     {
         $this->children = new ArrayCollection();
-        $this->groupMeetingAttendanceLists = new ArrayCollection();
+        $this->groupMeetingAttendances = new ArrayCollection();
     }
 
 
@@ -128,15 +128,15 @@ class Mother
     /**
      * @return Collection|GroupMeetingAttendance[]
      */
-    public function getGroupMeetingAttendanceLists(): Collection
+    public function getGroupMeetingAttendances(): Collection
     {
-        return $this->groupMeetingAttendanceLists;
+        return $this->groupMeetingAttendances;
     }
 
     public function addGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
     {
-        if (!$this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
-            $this->groupMeetingAttendanceLists[] = $groupMeetingAttendanceList;
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendanceList;
             $groupMeetingAttendanceList->setMother($this);
         }
 
@@ -145,8 +145,8 @@ class Mother
 
     public function removeGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
     {
-        if ($this->groupMeetingAttendanceLists->contains($groupMeetingAttendanceList)) {
-            $this->groupMeetingAttendanceLists->removeElement($groupMeetingAttendanceList);
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendanceList);
             // set the owning side to null (unless already changed)
             if ($groupMeetingAttendanceList->getMother() === $this) {
                 $groupMeetingAttendanceList->setMother(null);

@@ -19,13 +19,13 @@ class GroupMeetingAttendance
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Mother", inversedBy="groupMeetingAttendanceLists")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Mother", inversedBy="groupMeetingAttendances")
      * @ORM\JoinColumn(nullable=false)
      */
     private $mother;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendanceLists")
+     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendances")
      * @ORM\JoinColumn(nullable=false)
      */
     private $groupMeeting;
