@@ -19,10 +19,10 @@ class GroupMeetingAttendance
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Mother", inversedBy="groupMeetingAttendances")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="groupMeetingAttendances")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $mother;
+    private $person;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeeting", inversedBy="groupMeetingAttendances")
@@ -35,14 +35,14 @@ class GroupMeetingAttendance
         return $this->id;
     }
 
-    public function getMother(): ?Mother
+    public function getPerson(): ?Mother
     {
-        return $this->mother;
+        return $this->person;
     }
 
-    public function setMother(?Mother $mother): self
+    public function setPerson(?Mother $person): self
     {
-        $this->mother = $mother;
+        $this->person = $person;
 
         return $this;
     }

@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
         $counter = 0;
         foreach ($mothers as $mother) {
             $groupMeetingAttendanceList = new GroupMeetingAttendance();
-            $groupMeetingAttendanceList->setMother($mother);
+            $groupMeetingAttendanceList->setPerson($mother);
             $groupMeetingAttendanceList->setGroupMeeting($groupMeetings[$counter]);
 
             $counter++;

@@ -11,15 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Hold the full Mother data.
  */
-class Mother
+class Mother extends Person
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="boolean")
@@ -32,16 +25,6 @@ class Mother
     private $children;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lastName;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="mother")
      */
     private $groupMeetingAttendances;
@@ -50,12 +33,6 @@ class Mother
     {
         $this->children = new ArrayCollection();
         $this->groupMeetingAttendances = new ArrayCollection();
-    }
-
-
-    public function getId(): ?string
-    {
-        return $this->id;
     }
 
     public function getBirthdayEstimated(): ?bool
@@ -101,30 +78,6 @@ class Mother
         return $this;
     }
 
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
     /**
      * @return Collection|GroupMeetingAttendance[]
      */
@@ -137,7 +90,7 @@ class Mother
     {
         if (!$this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
             $this->groupMeetingAttendances[] = $groupMeetingAttendanceList;
-            $groupMeetingAttendanceList->setMother($this);
+            $groupMeetingAttendanceList->setPerson($this);
         }
 
         return $this;
@@ -148,8 +101,8 @@ class Mother
         if ($this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
             $this->groupMeetingAttendances->removeElement($groupMeetingAttendanceList);
             // set the owning side to null (unless already changed)
-            if ($groupMeetingAttendanceList->getMother() === $this) {
-                $groupMeetingAttendanceList->setMother(null);
+            if ($groupMeetingAttendanceList->getPerson() === $this) {
+                $groupMeetingAttendanceList->setPerson(null);
             }
         }
 

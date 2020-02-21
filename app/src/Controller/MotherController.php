@@ -18,7 +18,7 @@ class MotherController extends AbstractController
     {
 
         $children = $groupMeetingAttendance
-          ->getMother()
+          ->getPerson()
           ->getChildren()
           ->toArray();
 
