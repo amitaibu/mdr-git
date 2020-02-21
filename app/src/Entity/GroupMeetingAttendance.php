@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * A single attendance of a Person in a group meeting.
  *
- * @ORM\Entity(repositoryClass="App\Repository\GroupMeetingAttendanceListRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\GroupMeetingAttendanceRepository")
  */
 class GroupMeetingAttendance
 {

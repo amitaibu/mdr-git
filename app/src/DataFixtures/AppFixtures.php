@@ -36,6 +36,7 @@ class AppFixtures extends Fixture
             $mother->setLastName($faker->lastName);
             $mother->setBirthdayEstimated(False);
 
+            $counter = 0;
             for ($j = 0; $j < 3; $j++) {
                 $child = new Child();
                 $child->setFirstName($faker->firstNameFemale);
@@ -46,8 +47,14 @@ class AppFixtures extends Fixture
 
                 $groupMeetingAttendance = new GroupMeetingAttendance();
                 $groupMeetingAttendance->setPerson($child);
-                $groupMeetingAttendance->setGroupMeeting($groupMeetings[0]);
+                $groupMeetingAttendance->setGroupMeeting($groupMeetings[$counter]);
                 $manager->persist($groupMeetingAttendance);
+
+                $counter++;
+                if ($counter >= count($groupMeetings)) {
+                    $counter = 0;
+                }
+
             }
 
             $manager->persist($mother);

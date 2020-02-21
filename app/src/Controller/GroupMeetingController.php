@@ -8,6 +8,7 @@ use App\Entity\GroupMeetingAttendance;
 use App\Entity\Mother;
 use App\Entity\Person;
 use App\Repository\GroupMeetingAttendanceRepository;
+use App\Repository\GroupMeetingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,12 +19,12 @@ class GroupMeetingController extends AbstractController
      *
      * Show list of all group meetings.
      */
-    public function index(GroupMeetingAttendanceRepository $groupMeetingAttendanceRepository)
+    public function index(GroupMeetingRepository $groupMeetingRepository)
     {
-        $groupMeetingsAttendances = $groupMeetingAttendanceRepository->findAll();
+        $groupMeetings = $groupMeetingRepository->findAll();
 
         return $this->render('group_meeting/index.html.twig', [
-            'group_meetings_attendances' => $groupMeetingsAttendances,
+            'group_meetings' => $groupMeetings,
         ]);
     }
 
