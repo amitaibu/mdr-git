@@ -59,7 +59,7 @@ class ChildController extends AbstractController
                 $safeFilename = strtolower(preg_replace('/[[:^print:]]/', '', $originalFilename));
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
 
-                // Move the file to the directory where brochures are stored
+                // Move the file to the directory where images are stored
                 $photoFile->move(
                   $this->getParameter('child_photos_directory'),
                   $newFilename
@@ -92,6 +92,7 @@ class ChildController extends AbstractController
         return $this->render('child/show.html.twig', [
           'child' => $child,
           'group_meeting' => $groupMeeting,
+          'measurements' => $measurements,
           'has_existing_measurements' => $hasExistingMeasurements,
           'form' => $form->createView(),
         ]);

@@ -41,6 +41,11 @@
         {{ form_row(form.height) }}
         {{ form_row(form.weight) }}
         {{ form_row(form.photo) }}
+
+        {% if measurements.photo is not null %}
+          <img src="{{ asset('uploads/child/photos/' ~ measurements.photo) }}" alt="Child image" height="80px"/>
+        {% endif %}
+
       {{ form_end(form) }}
 
     </div>
