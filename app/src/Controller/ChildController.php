@@ -42,10 +42,6 @@ class ChildController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            /** @var ChildMeasurements $measurementsNewData */
-            $measurementsNewData = $form->getData();
 
             /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $photoFile */
             $photoFile = $form['photo']->getData();
@@ -70,7 +66,8 @@ class ChildController extends AbstractController
                       $newFilename
                     );
 
-                    $measurementsNewData->setPhoto($newFilename);
+                    $measurements->setPhoto($newFilename);
+                    dump($newFilename);
 
                     // Copy file to data folder.
                     // @todo: Move to service.
