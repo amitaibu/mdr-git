@@ -60,26 +60,21 @@ class ChildController extends AbstractController
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
 
                 // Move the file to the directory where brochures are stored
-                try {
-                    $photoFile->move(
-                      $this->getParameter('child_photos_directory'),
-                      $newFilename
-                    );
+                $photoFile->move(
+                  $this->getParameter('child_photos_directory'),
+                  $newFilename
+                );
 
-                    $measurements->setPhoto($newFilename);
-                    dump($newFilename);
+                $measurements->setPhoto($newFilename);
 
-                    // Copy file to data folder.
-                    // @todo: Move to service.
-                    $fileId = $groupMeetingAttendance->getPerson()->getId();
-                    $measurementsFileId = $groupMeetingAttendance->getGroupMeeting()->getId();
+                // Copy file to data folder.
+                // @todo: Move to service.
+                $fileId = $groupMeetingAttendance->getPerson()->getId();
+                $measurementsFileId = $groupMeetingAttendance->getGroupMeeting()->getId();
 
-                    $target = '../../data/children/' . $fileId . '/measurements/' .  $measurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
-                    $filesystem = new Filesystem();
-                    $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
+                $target = '../../data/children/' . $fileId . '/measurements/' .  $measurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
+                $filesystem = new Filesystem();
+                $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
             }
 
 
