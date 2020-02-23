@@ -29,8 +29,7 @@ class ChildController extends AbstractController
 
         // Check if Child already has measurements for the selected group
         // meeting.
-        $measurementsFromGroupMeetingIndex = null;
-        $measurements = $child->getMeasurements() ?: [];
+        $measurements = $groupMeetingAttendance->getMeasurements() ?: [];
         /** @var ChildMeasurements $childMeasurements */
         $childMeasurements = null;
         foreach ($measurements as $index => $measurement) {

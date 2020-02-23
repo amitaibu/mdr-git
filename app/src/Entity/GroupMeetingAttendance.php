@@ -35,11 +35,11 @@ class GroupMeetingAttendance
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ChildMeasurements", mappedBy="groupMeetingAttendance")
      */
-    private $childMeasurements;
+    private $measurements;
 
     public function __construct()
     {
-        $this->childMeasurements = new ArrayCollection();
+        $this->measurements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,28 +74,28 @@ class GroupMeetingAttendance
     /**
      * @return Collection|ChildMeasurements[]
      */
-    public function getChildMeasurements(): Collection
+    public function getMeasurements(): Collection
     {
-        return $this->childMeasurements;
+        return $this->measurements;
     }
 
-    public function addChildMeasurement(ChildMeasurements $childMeasurement): self
+    public function addMeasurement(ChildMeasurements $measurement): self
     {
-        if (!$this->childMeasurements->contains($childMeasurement)) {
-            $this->childMeasurements[] = $childMeasurement;
-            $childMeasurement->setGroupMeetingAttendance($this);
+        if (!$this->measurements->contains($measurement)) {
+            $this->measurements[] = $measurement;
+            $measurement->setGroupMeetingAttendance($this);
         }
 
         return $this;
     }
 
-    public function removeChildMeasurement(ChildMeasurements $childMeasurement): self
+    public function removeMeasurement(ChildMeasurements $measurements): self
     {
-        if ($this->childMeasurements->contains($childMeasurement)) {
-            $this->childMeasurements->removeElement($childMeasurement);
+        if ($this->measurements->contains($measurements)) {
+            $this->measurements->removeElement($measurements);
             // set the owning side to null (unless already changed)
-            if ($childMeasurement->getGroupMeetingAttendance() === $this) {
-                $childMeasurement->setGroupMeetingAttendance(null);
+            if ($measurements->getGroupMeetingAttendance() === $this) {
+                $measurements->setGroupMeetingAttendance(null);
             }
         }
 

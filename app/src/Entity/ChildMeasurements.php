@@ -7,15 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ChildMeasurementsRepository")
  */
-class ChildMeasurements
+class ChildMeasurements extends Measurements
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
-     */
-    private $id;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Child", inversedBy="childMeasurements", cascade={"persist", "remove"})
@@ -32,17 +25,6 @@ class ChildMeasurements
      * @ORM\Column(type="float")
      */
     private $height;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeetingAttendance", inversedBy="childMeasurements")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $groupMeetingAttendance;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getChild(): ?Child
     {
