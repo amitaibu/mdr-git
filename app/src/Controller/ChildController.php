@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Entity\ChildMeasurements;
 use App\Entity\GroupMeetingAttendance;
 use App\Form\Type\ChildMeasurementsType;
-use App\Service\ChildManagerInterface;
-use App\Service\ChildMeasurementsManagerInterface;
-use App\Service\GroupMeetingManagerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +18,8 @@ class ChildController extends AbstractController
      */
     public function showChildInGroupMeeting(
       GroupMeetingAttendance $groupMeetingAttendance,
-      Request $request
+      Request $request,
+      EntityManagerInterface $entityManager
     )
     {
 
@@ -90,6 +89,9 @@ class ChildController extends AbstractController
             // @todo: Validate.
 
             // $measurementsManager->create($child->getFileId(), $measurementsFileId, $measurementsNewData);
+
+            $entityManager->persist($measurements);
+            $entityManager->flush();
 
             // Reload page.
             return $this->redirect($request->getUri());
