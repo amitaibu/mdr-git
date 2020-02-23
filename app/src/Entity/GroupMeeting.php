@@ -77,23 +77,23 @@ class GroupMeeting
         return $this->groupMeetingAttendances;
     }
 
-    public function addGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendancesZ): self
+    public function addGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendances): self
     {
-        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendancesZ)) {
-            $this->groupMeetingAttendances[] = $groupMeetingAttendancesZ;
-            $groupMeetingAttendancesZ->setGroupMeeting($this);
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendances)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendances;
+            $groupMeetingAttendances->setGroupMeeting($this);
         }
 
         return $this;
     }
 
-    public function removeGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendancesZ): self
+    public function removeGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendances): self
     {
-        if ($this->groupMeetingAttendances->contains($groupMeetingAttendancesZ)) {
-            $this->groupMeetingAttendances->removeElement($groupMeetingAttendancesZ);
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendances)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendances);
             // set the owning side to null (unless already changed)
-            if ($groupMeetingAttendancesZ->getGroupMeeting() === $this) {
-                $groupMeetingAttendancesZ->setGroupMeeting(null);
+            if ($groupMeetingAttendances->getGroupMeeting() === $this) {
+                $groupMeetingAttendances->setGroupMeeting(null);
             }
         }
 

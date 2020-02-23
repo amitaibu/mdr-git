@@ -34,6 +34,7 @@ class GroupMeetingController extends AbstractController
     public function show(GroupMeeting $groupMeeting)
     {
 
+
         $groupMeetingAttendances = $groupMeeting
           ->getGroupMeetingAttendances()
           ->toArray();
