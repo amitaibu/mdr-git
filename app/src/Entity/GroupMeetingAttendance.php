@@ -33,14 +33,9 @@ class GroupMeetingAttendance
     private $groupMeeting;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ChildMeasurements", mappedBy="groupMeetingAttendance")
+     * @ORM\OneToOne(targetEntity="App\Entity\Measurements", mappedBy="groupMeetingAttendance", cascade={"persist", "remove"})
      */
     private $measurements;
-
-    public function __construct()
-    {
-        $this->measurements = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -71,35 +66,23 @@ class GroupMeetingAttendance
         return $this;
     }
 
-    /**
-     * @return Collection|ChildMeasurements[]
-     */
-    public function getMeasurements(): Collection
+    public function getMeasurements(): ?Measurements
     {
         return $this->measurements;
     }
 
-    public function addMeasurement(ChildMeasurements $measurement): self
+    public function setMeasurements(Measurements $measurements): self
     {
-        if (!$this->measurements->contains($measurement)) {
-            $this->measurements[] = $measurement;
-            $measurement->setGroupMeetingAttendance($this);
+        $this->measurements = $measurements;
+
+        // set the owning side of the relation if necessary
+        if ($measurements->getGroupMeetingAttendance() !== $this) {
+            $measurements->setGroupMeetingAttendance($this);
         }
 
         return $this;
     }
 
-    public function removeMeasurement(ChildMeasurements $measurements): self
-    {
-        if ($this->measurements->contains($measurements)) {
-            $this->measurements->removeElement($measurements);
-            // set the owning side to null (unless already changed)
-            if ($measurements->getGroupMeetingAttendance() === $this) {
-                $measurements->setGroupMeetingAttendance(null);
-            }
-        }
 
-        return $this;
-    }
 
 }

@@ -20,8 +20,26 @@ abstract class Measurements
      */
     private $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\GroupMeetingAttendance", inversedBy="measurements", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupMeetingAttendance;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getGroupMeetingAttendance(): ?GroupMeetingAttendance
+    {
+        return $this->groupMeetingAttendance;
+    }
+
+    public function setGroupMeetingAttendance(GroupMeetingAttendance $groupMeetingAttendance): self
+    {
+        $this->groupMeetingAttendance = $groupMeetingAttendance;
+
+        return $this;
     }
 }
