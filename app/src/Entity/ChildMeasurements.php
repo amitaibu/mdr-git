@@ -33,6 +33,12 @@ class ChildMeasurements
      */
     private $height;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\GroupMeetingAttendance", inversedBy="childMeasurements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupMeetingAttendance;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +76,18 @@ class ChildMeasurements
     public function setHeight(float $height): self
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    public function getGroupMeetingAttendance(): ?GroupMeetingAttendance
+    {
+        return $this->groupMeetingAttendance;
+    }
+
+    public function setGroupMeetingAttendance(?GroupMeetingAttendance $groupMeetingAttendance): self
+    {
+        $this->groupMeetingAttendance = $groupMeetingAttendance;
 
         return $this;
     }

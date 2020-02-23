@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ChildMeasurements;
+use App\Entity\GroupMeetingAttendance;
 use App\Form\Type\ChildMeasurementsType;
 use App\Service\ChildManagerInterface;
 use App\Service\ChildMeasurementsManagerInterface;
@@ -17,25 +18,14 @@ class ChildController extends AbstractController
     /**
      * @Route("/group-meetings/child/{groupMeetingAttendance}", name="child_in_group_meeting")
      */
-    public function showChildInGroupMeetingContext(
-      Request $request,
-      string $groupMeetingFileId,
-      string $fileId,
-      GroupMeetingManagerInterface $groupMeetingManager,
-      ChildManagerInterface $childManager,
-      ChildMeasurementsManagerInterface $childMeasurementsManager
+    public function showChildInGroupMeeting(
+      GroupMeetingAttendance $groupMeetingAttendance,
+      Request $request
     )
     {
 
-        $groupMeeting = $groupMeetingManager->get($groupMeetingFileId);
-        if (!$groupMeeting) {
-            throw $this->createNotFoundException('Group meeting not found.');
-        }
-
-        $child = $childManager->get($fileId);
-        if (!$child) {
-            throw $this->createNotFoundException('Child not found.');
-        }
+        $groupMeeting = $groupMeetingAttendance->getGroupMeeting();
+        $child = $groupMeetingAttendance->getPerson();
 
         // Check if Child already has measurements for the selected group
         // meeting.
