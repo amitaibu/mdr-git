@@ -103,4 +103,17 @@ abstract class Person
 
         return $this;
     }
+
+    /**
+     * Get the type of the class.
+     *
+     * In Twig we avoid using `instanceOf`, so this makes it easier to get it.
+     *
+     * @return string
+     */
+    public function getType() {
+        $class = explode('\\', get_class($this));
+        $type =  end($class);
+        return strtolower($type);
+    }
 }

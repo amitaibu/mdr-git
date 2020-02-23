@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChildController extends AbstractController
 {
     /**
-     * @Route("/group-meetings/{groupMeetingFileId}/child/{fileId}", name="child")
+     * @Route("/group-meetings/child/{groupMeetingAttendance}", name="child_in_group_meeting")
      */
     public function showChildInGroupMeetingContext(
       Request $request,

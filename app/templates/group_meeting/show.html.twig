@@ -15,13 +15,13 @@
       </a>
     </div>
 
-    <h1>Group meeting: {{ group_meeting.name }}</h1>
+    <h1>Group meeting: {{ group_meeting.name }} ({{ group_meeting.date | date("F jS \\a\\t g:ia") }})</h1>
 
     <ol class="mothers app-list">
         {% for group_meeting_attendance in children_group_meeting_attendances %}
 
             <li>
-                <a class="item" href="{{ path('mother', {groupMeetingAttendance: group_meeting_attendance.id}) }}">
+                <a class="item" href="{{ path( group_meeting_attendance.person.getType() ~ '_in_group_meeting', {groupMeetingAttendance: group_meeting_attendance.id}) }}">
                     <i class="fa fa-female" aria-hidden="true"></i>
                     <div class="item-name">
                         {{ group_meeting_attendance.person.firstName }} {{ group_meeting_attendance.person.lastName }} (Child)
