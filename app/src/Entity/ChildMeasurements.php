@@ -11,12 +11,6 @@ class ChildMeasurements extends Measurements
 {
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Child", inversedBy="childMeasurements", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $child;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $weight;
@@ -25,18 +19,6 @@ class ChildMeasurements extends Measurements
      * @ORM\Column(type="float")
      */
     private $height;
-
-    public function getChild(): ?Child
-    {
-        return $this->child;
-    }
-
-    public function setChild(Child $child): self
-    {
-        $this->child = $child;
-
-        return $this;
-    }
 
     public function getWeight(): ?string
     {
@@ -62,15 +44,4 @@ class ChildMeasurements extends Measurements
         return $this;
     }
 
-    public function getGroupMeetingAttendance(): ?GroupMeetingAttendance
-    {
-        return $this->groupMeetingAttendance;
-    }
-
-    public function setGroupMeetingAttendance(?GroupMeetingAttendance $groupMeetingAttendance): self
-    {
-        $this->groupMeetingAttendance = $groupMeetingAttendance;
-
-        return $this;
-    }
 }

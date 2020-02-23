@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\MeasurementsRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"child" = "Child", "mother" = "Mother"})
+ * @ORM\DiscriminatorMap({"child" = "ChildMeasurements"})
  */
 abstract class Measurements
 {
