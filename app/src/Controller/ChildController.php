@@ -30,40 +30,23 @@ class ChildController extends AbstractController
         // Check if Child already has measurements for the selected group
         // meeting.
         $measurements = $groupMeetingAttendance->getMeasurements() ?: [];
-        /** @var ChildMeasurements $childMeasurements */
-        $childMeasurements = null;
-        foreach ($measurements as $index => $measurement) {
-            if ($measurement->getGroupMeeting() == $groupMeeting->getFileId()) {
-                $childMeasurements = $measurement;
-                break;
-            }
-        }
+        $hasExistingMeasurements = true;
 
-        $hasExistingMeasurements = false;
-        if (!$childMeasurements) {
+        if (empty($measurements)) {
             // New measurements
-            $childMeasurements = new ChildMeasurements();
-            $childMeasurements->setGroupMeeting($groupMeeting->getFileId());
-
-            $now = new \DateTime();
-            $childMeasurementsFileId = $now->format('Y-m-d-H:i');
-            $childMeasurements->setFileId($childMeasurementsFileId);
-        }
-        else {
-            // Existing measurements.
-            $childMeasurementsFileId = $childMeasurements->getFileId();
-            $hasExistingMeasurements = true;
+            $measurements = new ChildMeasurements();
+            $measurements->setGroupMeetingAttendance($groupMeetingAttendance);
+            $hasExistingMeasurements = false;
         }
 
-
-        $form = $this->createForm(ChildMeasurementsType::class, $childMeasurements);
+        $form = $this->createForm(ChildMeasurementsType::class, $measurements);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
-            /** @var ChildMeasurements $childMeasurementsNewData */
-            $childMeasurementsNewData = $form->getData();
+            /** @var ChildMeasurements $measurementsNewData */
+            $measurementsNewData = $form->getData();
 
             /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $photoFile */
             $photoFile = $form['photo']->getData();
@@ -88,11 +71,14 @@ class ChildController extends AbstractController
                       $newFilename
                     );
 
-                    $childMeasurementsNewData->setPhoto($newFilename);
+                    $measurementsNewData->setPhoto($newFilename);
 
                     // Copy file to data folder.
                     // @todo: Move to service.
-                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
+                    $fileId = $groupMeetingAttendance->getPerson()->getId();
+                    $measurementsFileId = $groupMeetingAttendance->getGroupMeeting()->getId();
+
+                    $target = '../../data/children/' . $fileId . '/measurements/' .  $measurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
                     $filesystem = new Filesystem();
                     $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
                 } catch (FileException $e) {
@@ -103,7 +89,7 @@ class ChildController extends AbstractController
 
             // @todo: Validate.
 
-            $childMeasurementsManager->create($child->getFileId(), $childMeasurementsFileId, $childMeasurementsNewData);
+            // $measurementsManager->create($child->getFileId(), $measurementsFileId, $measurementsNewData);
 
             // Reload page.
             return $this->redirect($request->getUri());
