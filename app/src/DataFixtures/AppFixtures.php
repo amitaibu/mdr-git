@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Child;
+use App\Entity\ChildMeasurements;
 use App\Entity\GroupMeeting;
 use App\Entity\GroupMeetingAttendance;
 use App\Entity\Mother;
@@ -55,6 +56,11 @@ class AppFixtures extends Fixture
                     $counter = 0;
                 }
 
+                $childMeasurements = new ChildMeasurements();
+                $childMeasurements->setHeight($faker->numberBetween(1, 20));
+                $childMeasurements->setWeight($faker->numberBetween(1, 20));
+                $childMeasurements->setGroupMeetingAttendance($groupMeetingAttendance);
+                $manager->persist($childMeasurements);
             }
 
             $manager->persist($mother);
