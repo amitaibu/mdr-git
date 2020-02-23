@@ -20,6 +20,11 @@ class ChildMeasurements extends Measurements
      */
     private $height;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
     public function getWeight(): ?string
     {
         return $this->weight;
@@ -40,6 +45,18 @@ class ChildMeasurements extends Measurements
     public function setHeight(float $height): self
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
