@@ -56,6 +56,11 @@ class AppFixtures extends Fixture
                     $counter = 0;
                 }
 
+                if ($faker->numberBetween(1, 3) == 3) {
+                    // Some Child should be without measurements.
+                    continue;
+                }
+
                 $childMeasurements = new ChildMeasurements();
                 $childMeasurements->setHeight($faker->numberBetween(1, 20));
                 $childMeasurements->setWeight($faker->numberBetween(1, 20));
