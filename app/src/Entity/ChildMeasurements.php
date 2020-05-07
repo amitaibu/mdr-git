@@ -1,105 +1,64 @@
 <?php
 
-
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
-
-class ChildMeasurements
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ChildMeasurementsRepository")
+ */
+class ChildMeasurements extends Measurements
 {
 
-    private $fileId;
+    /**
+     * @ORM\Column(type="float")
+     */
     private $weight;
+
+    /**
+     * @ORM\Column(type="float")
+     */
     private $height;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $photo;
 
-    /**
-     * @var string
-     *
-     * @SerializedName("group_meeting")
-     */
-    private $groupMeeting;
-
-    /**
-     * @return mixed
-     */
-    public function getFileId()
-    {
-        return $this->fileId;
-    }
-
-    /**
-     * @param mixed $fileId
-     */
-    public function setFileId($fileId): void
-    {
-        $this->fileId = $fileId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWeight()
+    public function getWeight(): ?string
     {
         return $this->weight;
     }
 
-    /**
-     * @param mixed $weight
-     */
-    public function setWeight($weight): void
+    public function setWeight(string $weight): self
     {
         $this->weight = $weight;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getHeight()
+    public function getHeight(): ?float
     {
         return $this->height;
     }
 
-    /**
-     * @param mixed $height
-     */
-    public function setHeight($height): void
+    public function setHeight(float $height): self
     {
         $this->height = $height;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPhoto()
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    /**
-     * @param mixed $photo
-     */
-    public function setPhoto($photo): void
+    public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getGroupMeeting()
-    {
-        return $this->groupMeeting;
+        return $this;
     }
-
-    /**
-     * @param mixed $groupMeeting
-     */
-    public function setGroupMeeting($groupMeeting): void
-    {
-        $this->groupMeeting = $groupMeeting;
-    }
-
 
 }

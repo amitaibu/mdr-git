@@ -9,14 +9,14 @@
     <a class="pure-button item" href="/">
         <i class="fa fa-home" aria-hidden="true"></i>Home
     </a>
-    <a class="pure-button item" href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: child.identifier.mother}) }}">
-        <i class="fa fa-reply" aria-hidden="true"></i>Back to mother
+    <a class="pure-button item" href="{{ path('group_meeting', { id: group_meeting.id }) }}">
+        <i class="fa fa-reply" aria-hidden="true"></i>Back to Group meeting
     </a>
   </div>
 
   <h1>
 
-    {{ child.identifier.firstName }} {{ child.identifier.lastName }}
+    {{ child.firstName }} {{ child.lastName }}
 
   </h1>
 
@@ -41,58 +41,63 @@
         {{ form_row(form.height) }}
         {{ form_row(form.weight) }}
         {{ form_row(form.photo) }}
+
+        {% if measurements.photo is not null %}
+          <img src="{{ asset('uploads/child/photos/' ~ measurements.photo) }}" alt="Child image" height="80px"/>
+        {% endif %}
+
       {{ form_end(form) }}
 
     </div>
   </section>
 
-  <section class="all-measurements">
-    <h3>All measurements</h3>
+{#  <section class="all-measurements">#}
+{#    <h3>All measurements</h3>#}
 
-    {% if child.measurements is not null %}
+{#    {% if child.measurements is not null %}#}
 
-      <table class="pure-table measurements">
-        <thead>
-          <tr>
-            <th>Group meeting</th>
-            <th>Height</th>
-            <th>Weight</th>
-            <th>Photo</th>
-          </tr>
-        </thead>
+{#      <table class="pure-table measurements">#}
+{#        <thead>#}
+{#          <tr>#}
+{#            <th>Group meeting</th>#}
+{#            <th>Height</th>#}
+{#            <th>Weight</th>#}
+{#            <th>Photo</th>#}
+{#          </tr>#}
+{#        </thead>#}
 
-        <tbody>
+{#        <tbody>#}
 
-          {% for measurements in child.measurements %}
+{#          {% for measurements in child.measurements %}#}
 
-            <tr>
-              <td>{{ measurements.groupMeeting }}</td>
-              <td>{{ measurements.height }} cm</td>
-              <td>{{ measurements.weight }} kg</td>
-              <td>
+{#            <tr>#}
+{#              <td>{{ measurements.groupMeeting }}</td>#}
+{#              <td>{{ measurements.height }} cm</td>#}
+{#              <td>{{ measurements.weight }} kg</td>#}
+{#              <td>#}
 
-                {% if measurements.photo is not null %}
+{#                {% if measurements.photo is not null %}#}
 
-                  <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>
+{#                  <img src="{{ measurements.photo }}" alt="Child image" height="80px"/>#}
 
-                {% endif %}
+{#                {% endif %}#}
 
-              </td>
-            </tr>
+{#              </td>#}
+{#            </tr>#}
 
-          {% endfor %}
+{#          {% endfor %}#}
 
-        </tbody>
-      </table>
+{#        </tbody>#}
+{#      </table>#}
 
-    {% else %}
+{#    {% else %}#}
 
-      <div class="no-measurements-message">
-          Child has no measurements.
-      </div>
+{#      <div class="no-measurements-message">#}
+{#          Child has no measurements.#}
+{#      </div>#}
 
-    {% endif %}
+{#    {% endif %}#}
 
-  </section>
+{#  </section>#}
 
 {% endblock %}

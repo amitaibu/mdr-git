@@ -1,17 +1,16 @@
 APIVersion: v1.13.0
-name: mdr-git
+name: app
 type: php
-docroot: app/public
-php_version: "7.2"
+docroot: public
+php_version: "7.3"
 webserver_type: nginx-fpm
-router_http_port: "8080"
-router_https_port: "4443"
+router_http_port: "80"
+router_https_port: "443"
 xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
 nfs_mount_enabled: false
 provider: default
-webimage_extra_packages: [blackfire-agent]
 use_dns_when_possible: true
 timezone: ""
 

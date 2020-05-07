@@ -1,79 +1,32 @@
 <?php
 
-
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Child
- *
- * Hold the full Child data.
- *
- * @package App\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ChildRepository")
  */
-class Child
+class Child extends Person
 {
 
-    private $fileId;
-
     /**
-     * @var \App\Entity\ChildIdentifier
+     * @ORM\ManyToOne(targetEntity="App\Entity\Mother", inversedBy="children")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $identifier;
+    private $mother;
 
-    /**
-     * @var \App\Entity\ChildMeasurements[] | ArrayCollection
-     */
-    private $measurements;
 
-    /**
-     * @return mixed
-     */
-    public function getFileId()
+    public function getMother(): ?Mother
     {
-        return $this->fileId;
+        return $this->mother;
     }
 
-    /**
-     * @param mixed $fileId
-     */
-    public function setFileId($fileId): void
+    public function setMother(?Mother $mother): self
     {
-        $this->fileId = $fileId;
-    }
+        $this->mother = $mother;
 
-    /**
-     * @return \App\Entity\ChildIdentifier
-     */
-    public function getIdentifier(): \App\Entity\ChildIdentifier
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param \App\Entity\ChildIdentifier $identifier
-     */
-    public function setIdentifier(\App\Entity\ChildIdentifier $identifier): void
-    {
-        $this->identifier = $identifier;
-    }
-
-    /**
-     * @return \App\Entity\ChildMeasurements[]|\Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getMeasurements()
-    {
-        return $this->measurements;
-    }
-
-    /**
-     * @param \App\Entity\ChildMeasurements[]|\Doctrine\Common\Collections\ArrayCollection $measurements
-     */
-    public function setMeasurements($measurements): void
-    {
-        $this->measurements = $measurements;
+        return $this;
     }
 
 }

@@ -34,8 +34,14 @@ First install [Termux](https://termux.com/), start it and enter the following co
     php -r "unlink('composer-setup.php');"
 
     # Install packages
-    php composer.phar install    
+    php composer.phar install
 
+    # Setup SQLite, create tables, and add dummy content.
+    pkg install sqlite
+    # Remove existing DB if needed.
+    rm var/data.db
+    php bin/console doctrine:migrations:migrate
+    php bin/console doctrine:fixtures:load
 
 ## Console Commands
 

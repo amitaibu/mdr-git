@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\ChildMeasurements;
+use App\Entity\GroupMeetingAttendance;
 use App\Form\Type\ChildMeasurementsType;
-use App\Service\ChildManagerInterface;
-use App\Service\ChildMeasurementsManagerInterface;
-use App\Service\GroupMeetingManagerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,66 +14,34 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChildController extends AbstractController
 {
     /**
-     * @Route("/group-meetings/{groupMeetingFileId}/child/{fileId}", name="child")
+     * @Route("/group-meetings/child/{groupMeetingAttendance}", name="child_in_group_meeting")
      */
-    public function showChildInGroupMeetingContext(
+    public function showChildInGroupMeeting(
+      GroupMeetingAttendance $groupMeetingAttendance,
       Request $request,
-      string $groupMeetingFileId,
-      string $fileId,
-      GroupMeetingManagerInterface $groupMeetingManager,
-      ChildManagerInterface $childManager,
-      ChildMeasurementsManagerInterface $childMeasurementsManager
+      EntityManagerInterface $entityManager
     )
     {
 
-        $groupMeeting = $groupMeetingManager->get($groupMeetingFileId);
-        if (!$groupMeeting) {
-            throw $this->createNotFoundException('Group meeting not found.');
-        }
-
-        $child = $childManager->get($fileId);
-        if (!$child) {
-            throw $this->createNotFoundException('Child not found.');
-        }
+        $groupMeeting = $groupMeetingAttendance->getGroupMeeting();
+        $child = $groupMeetingAttendance->getPerson();
 
         // Check if Child already has measurements for the selected group
         // meeting.
-        $measurementsFromGroupMeetingIndex = null;
-        $measurements = $child->getMeasurements() ?: [];
-        /** @var ChildMeasurements $childMeasurements */
-        $childMeasurements = null;
-        foreach ($measurements as $index => $measurement) {
-            if ($measurement->getGroupMeeting() == $groupMeeting->getFileId()) {
-                $childMeasurements = $measurement;
-                break;
-            }
-        }
+        $measurements = $groupMeetingAttendance->getMeasurements() ?: [];
+        $hasExistingMeasurements = true;
 
-        $hasExistingMeasurements = false;
-        if (!$childMeasurements) {
+        if (empty($measurements)) {
             // New measurements
-            $childMeasurements = new ChildMeasurements();
-            $childMeasurements->setGroupMeeting($groupMeeting->getFileId());
-
-            $now = new \DateTime();
-            $childMeasurementsFileId = $now->format('Y-m-d-H:i');
-            $childMeasurements->setFileId($childMeasurementsFileId);
-        }
-        else {
-            // Existing measurements.
-            $childMeasurementsFileId = $childMeasurements->getFileId();
-            $hasExistingMeasurements = true;
+            $measurements = new ChildMeasurements();
+            $measurements->setGroupMeetingAttendance($groupMeetingAttendance);
+            $hasExistingMeasurements = false;
         }
 
-
-        $form = $this->createForm(ChildMeasurementsType::class, $childMeasurements);
+        $form = $this->createForm(ChildMeasurementsType::class, $measurements);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            /** @var ChildMeasurements $childMeasurementsNewData */
-            $childMeasurementsNewData = $form->getData();
 
             /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $photoFile */
             $photoFile = $form['photo']->getData();
@@ -92,29 +59,31 @@ class ChildController extends AbstractController
                 $safeFilename = strtolower(preg_replace('/[[:^print:]]/', '', $originalFilename));
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
 
-                // Move the file to the directory where brochures are stored
-                try {
-                    $photoFile->move(
-                      $this->getParameter('child_photos_directory'),
-                      $newFilename
-                    );
+                // Move the file to the directory where images are stored
+                $photoFile->move(
+                  $this->getParameter('child_photos_directory'),
+                  $newFilename
+                );
 
-                    $childMeasurementsNewData->setPhoto($newFilename);
+                $measurements->setPhoto($newFilename);
 
-                    // Copy file to data folder.
-                    // @todo: Move to service.
-                    $target = '../../data/children/' . $fileId . '/measurements/' .  $childMeasurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
-                    $filesystem = new Filesystem();
-                    $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
+                // Copy file to data folder.
+                // @todo: Move to service.
+                $fileId = $groupMeetingAttendance->getPerson()->getId();
+                $measurementsFileId = $groupMeetingAttendance->getGroupMeeting()->getId();
+
+                $target = '../../data/children/' . $fileId . '/measurements/' .  $measurementsFileId . '/photo.' . strtolower($photoFile->getClientOriginalExtension());
+                $filesystem = new Filesystem();
+                $filesystem->copy($this->getParameter('child_photos_directory') . '/' . $newFilename, $target, true);
             }
 
 
             // @todo: Validate.
 
-            $childMeasurementsManager->create($child->getFileId(), $childMeasurementsFileId, $childMeasurementsNewData);
+            // $measurementsManager->create($child->getFileId(), $measurementsFileId, $measurementsNewData);
+
+            $entityManager->persist($measurements);
+            $entityManager->flush();
 
             // Reload page.
             return $this->redirect($request->getUri());
@@ -123,6 +92,7 @@ class ChildController extends AbstractController
         return $this->render('child/show.html.twig', [
           'child' => $child,
           'group_meeting' => $groupMeeting,
+          'measurements' => $measurements,
           'has_existing_measurements' => $hasExistingMeasurements,
           'form' => $form->createView(),
         ]);

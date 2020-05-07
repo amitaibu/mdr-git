@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\GroupMeetingAttendance;
+use App\Entity\Mother;
 use App\Service\GroupMeetingManagerInterface;
 use App\Service\MotherManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,24 +12,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class MotherController extends AbstractController
 {
     /**
-     * @Route("/group-meetings/{groupMeetingFileId}/mother/{fileId}", name="mother")
+     * @Route("/group-meetings/mother/{groupMeetingAttendance}", name="mother_in_group_meeting")
      */
-    public function showMotherInGroupMeetingContext(string $groupMeetingFileId, string $fileId, MotherManagerInterface $motherManager, GroupMeetingManagerInterface $groupMeetingManager)
+    public function showMotherInGroupMeetingContext(GroupMeetingAttendance $groupMeetingAttendance)
     {
 
-        $groupMeeting = $groupMeetingManager->get($groupMeetingFileId);
-        if (!$groupMeeting) {
-            throw $this->createNotFoundException('Group meeting not found.');
-        }
+        $children = $groupMeetingAttendance
+          ->getPerson()
+          ->getChildren()
+          ->toArray();
 
-        $mother = $motherManager->get($fileId);
-        if (!$mother) {
-            throw $this->createNotFoundException('Mother not found.');
-        }
+        // Sort children by first name.
+        usort($children, function($a, $b) {
+            return strcmp($a->getFirstName(), $b->getFirstName());
+        });
+
 
         return $this->render('mother/show.html.twig', [
-            'mother' => $mother,
-            'group_meeting' => $groupMeeting,
+            'group_meeting_attendance' => $groupMeetingAttendance,
+            'children' => $children,
         ]);
     }
 }

@@ -1,90 +1,103 @@
 <?php
 
-
 namespace App\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\GroupMeetingRepository")
+ */
 class GroupMeeting
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
+    private $id;
 
-
-    private $fileId;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $date;
 
     /**
-     * @var \App\Entity\MotherIdentifier[] | ArrayCollection
-     *
-     * @SerializedName("mothers")
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="groupMeeting")
      */
-    private $motherIdentifiers;
+    private $groupMeetingAttendances;
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function __construct()
+    {
+        $this->groupMeetingAttendances = new ArrayCollection();
+    }
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDate()
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    /**
-     * @param mixed $date
-     */
-    public function setDate($date): void
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|GroupMeetingAttendance[]
      */
-    public function getMotherIdentifiers()
+    public function getGroupMeetingAttendances(): Collection
     {
-        return $this->motherIdentifiers;
+        return $this->groupMeetingAttendances;
     }
 
-    /**
-     * @param mixed $motherIdentifiers
-     */
-    public function setMotherIdentifiers($motherIdentifiers): void
+    public function addGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendances): self
     {
-        $this->motherIdentifiers = $motherIdentifiers;
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendances)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendances;
+            $groupMeetingAttendances->setGroupMeeting($this);
+        }
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFileId()
+    public function removeGroupMeetingAttendances(GroupMeetingAttendance $groupMeetingAttendances): self
     {
-        return $this->fileId;
-    }
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendances)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendances);
+            // set the owning side to null (unless already changed)
+            if ($groupMeetingAttendances->getGroupMeeting() === $this) {
+                $groupMeetingAttendances->setGroupMeeting(null);
+            }
+        }
 
-    /**
-     * @param mixed $fileId
-     */
-    public function setFileId($fileId): void
-    {
-        $this->fileId = $fileId;
+        return $this;
     }
-
 
 }

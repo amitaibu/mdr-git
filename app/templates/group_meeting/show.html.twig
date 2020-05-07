@@ -15,20 +15,35 @@
       </a>
     </div>
 
-    <h1>{{ group_meeting.name }}</h1>
+    <h1>Group meeting: {{ group_meeting.name }} ({{ group_meeting.date | date("F jS \\a\\t g:ia") }})</h1>
 
-    <ul class="mothers app-list">
-        {% for motherIdentifier in group_meeting.motherIdentifiers %}
+    <ol class="mothers app-list">
+        {% for group_meeting_attendance in children_group_meeting_attendances %}
+
             <li>
-                <a class="item" href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: motherIdentifier.fileId}) }}">
+                <a class="item" href="{{ path( group_meeting_attendance.person.getType() ~ '_in_group_meeting', {groupMeetingAttendance: group_meeting_attendance.id}) }}">
                     <i class="fa fa-female" aria-hidden="true"></i>
                     <div class="item-name">
-                      {{ motherIdentifier.firstName }} {{ motherIdentifier.lastName }}
+                        {{ group_meeting_attendance.person.firstName }} {{ group_meeting_attendance.person.lastName }} (Child)
                     </div>
+
                 </a>
             </li>
         {% endfor %}
-    </ul>
+    </ol>
+
+{#    <ul class="mothers app-list">#}
+{#        {% for motherIdentifier in group_meeting.motherIdentifiers %}#}
+{#            <li>#}
+{#                <a class="item" href="{{ path('mother', {groupMeetingFileId: group_meeting.fileId, fileId: motherIdentifier.fileId}) }}">#}
+{#                    <i class="fa fa-female" aria-hidden="true"></i>#}
+{#                    <div class="item-name">#}
+{#                      {{ motherIdentifier.firstName }} {{ motherIdentifier.lastName }}#}
+{#                    </div>#}
+{#                </a>#}
+{#            </li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
 
 {#    <details>#}
 {#        {{ dump(group_meeting) }}#}

@@ -1,81 +1,111 @@
 <?php
 
-
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Mother
+ * @ORM\Entity(repositoryClass="App\Repository\MotherRepository")
  *
  * Hold the full Mother data.
- *
- * @package App\Entity
  */
-class Mother
+class Mother extends Person
 {
 
-    private $fileId;
-
     /**
-     * @var \App\Entity\MotherIdentifier
-     */
-    private $identifier;
-
-    /**
-     * @var bool
-     *
-     * @SerializedName("birthday_estiamted")
+     * @ORM\Column(type="boolean")
      */
     private $birthdayEstimated;
 
     /**
-     * @return \App\Entity\MotherIdentifier
+     * @ORM\OneToMany(targetEntity="App\Entity\Child", mappedBy="mother", orphanRemoval=true)
      */
-    public function getIdentifier(): ?\App\Entity\MotherIdentifier
-    {
-        return $this->identifier;
-    }
+    private $children;
 
     /**
-     * @param \App\Entity\MotherIdentifier $identifier
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMeetingAttendance", mappedBy="mother")
      */
-    public function setIdentifier(\App\Entity\MotherIdentifier $identifier): void
+    private $groupMeetingAttendances;
+
+    public function __construct()
     {
-        $this->identifier = $identifier;
+        $this->children = new ArrayCollection();
+        $this->groupMeetingAttendances = new ArrayCollection();
     }
 
-    /**
-     * @return bool
-     */
-    public function isBirthdayEstimated()
+    public function getBirthdayEstimated(): ?bool
     {
         return $this->birthdayEstimated;
     }
 
-    /**
-     * @param bool $birthdayEstimated
-     */
-    public function setBirthdayEstimated(bool $birthdayEstimated): void
+    public function setBirthdayEstimated(bool $birthdayEstimated): self
     {
         $this->birthdayEstimated = $birthdayEstimated;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|Child[]
      */
-    public function getFileId()
+    public function getChildren(): Collection
     {
-        return $this->fileId;
+        return $this->children;
+    }
+
+    public function addChild(Child $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setMother($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Child $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getMother() === $this) {
+                $child->setMother(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
-     * @param mixed $fileId
+     * @return Collection|GroupMeetingAttendance[]
      */
-    public function setFileId($fileId): void
+    public function getGroupMeetingAttendances(): Collection
     {
-        $this->fileId = $fileId;
+        return $this->groupMeetingAttendances;
     }
 
+    public function addGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
+    {
+        if (!$this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendances[] = $groupMeetingAttendanceList;
+            $groupMeetingAttendanceList->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupMeetingAttendanceList(GroupMeetingAttendance $groupMeetingAttendanceList): self
+    {
+        if ($this->groupMeetingAttendances->contains($groupMeetingAttendanceList)) {
+            $this->groupMeetingAttendances->removeElement($groupMeetingAttendanceList);
+            // set the owning side to null (unless already changed)
+            if ($groupMeetingAttendanceList->getPerson() === $this) {
+                $groupMeetingAttendanceList->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
 }
